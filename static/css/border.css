@@ -1,0 +1,16 @@
+.border1 {
+  border: thin dashed black;
+}
+.border-left-separator {
+  border-left: 1px solid silver;
+}
+.photo-album-border {
+  border: 1px solid silver;
+}
+.chosen-photo-album-border {
+  border: 1px solid #2d8cf0;
+}
+
+.wangEditor-error-border{
+  border: 1px solid #ed3f14
+}

@@ -1,0 +1,10 @@
+//app（vue）扩展到整个页面
+#app{
+  height:100%;
+  flex-grow: 1;
+  overflow: no-display;
+}
+
+body{
+  padding-bottom: 0px; //iview默认是50px，导致缩小页面时，footer会上移，覆盖上面的组件
+}

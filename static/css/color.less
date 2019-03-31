@@ -1,0 +1,364 @@
+/*
+*   公式
+*/
+/**************************************************************/
+/**************** color  ************************/
+/**************************************************************/
+//@primary: #2d8cf0;
+@primary: hsl(211, 86.7%, 55.9%);
+//@light-primary: #5cadff;
+@light-primary:hsl(211, 100.0%, 68.0%);
+//@dark-primary: #2b85e4;
+@dark-primary: hsl(211, 77.4%, 53.1%);
+
+@info: @primary;
+//@success: #19be6b;
+@success:hsl(150, 76.7%, 42.2%);
+//@warning: #ff9900;
+@warning: hsl(36, 100.0%, 50.0%);
+//@error: #ed3f14;
+@error: hsl(12, 85.8%, 50.4%);
+
+@white: #ffffff;
+@black: #000000;
+@red: #ff0000;
+
+//@test:rgb(255,165,0);
+//@test:rgb(16,78,139);
+//@test:rgb(0,139,0);
+//@test:rgb(255,0,0);
+.lighten(@color){
+  color: lighten(@color,10%);
+}
+.lightener(@color){
+  color: lighten(@color,20%);
+}
+.lightenest(@color){
+  color: lighten(@color,30%);
+}
+.darken(@color){
+  color: darken(@color,10%);
+}
+.darkener(@color){
+  color: darken(@color,20%);
+}
+.darkenest(@color){
+  color: darken(@color,30%);
+}
+
+
+
+
+.bg-darken(@color){
+  background-color: darken(@color,10%);
+}
+.bg-darkener(@color){
+  background-color: darken(@color,20%);
+}
+.bg-darkenest(@color){
+  background-color: darken(@color,30%);
+}
+.bg-lighten(@color){
+  background-color: lighten(@color,10%);
+}
+.bg-lightener(@color){
+  background-color: lighten(@color,20%);
+}
+.bg-lightenest(@color){
+  background-color: lighten(@color,30%);
+}
+
+.border-color(@color){
+  border-color: @color;
+}
+//(@direction,@starColor,@endColor)
+.bg-linear-gradient{
+  background: linear-gradient(90deg, #ffffff,#bcdafa);
+}
+
+
+
+
+/*        iview basic color     */
+.color-primary{
+  color:@primary
+}
+.color-light-primary{
+  color:@light-primary
+}
+.color-dark-primary{
+  color:@dark-primary
+}
+.color-error{
+  color:@error
+}
+.color-info{
+  color:@info
+}
+.color-success{
+  color:@success
+}
+.color-warning{
+  color:@warning
+}
+/*        self define color     */
+.color-white{
+  color:@white;
+}
+.color-red{
+  color:@red;
+}
+.color-grey{
+  color:grey;
+}
+
+
+
+.color-lightener-primary{
+  .lightener(@light-primary)
+}
+.color-lightenest-primary{
+  .lightenest(@light-primary)
+}
+
+.color-darkener-primary{
+  .bg-darkener(@dark-primary)
+}
+.color-darkenest-primary{
+  .bg-darkenest(@dark-primary)
+}
+
+.color-lighten-error{
+  .lighten(@error)
+}
+.color-lightener-error{
+  .lightener(@error)
+}
+.color-lightenest-error{
+  .lightenest(@error)
+}
+.color-darken-error{
+  .darken(@error)
+}
+.color-darkener-error{
+  .darkener(@error)
+}
+.color-darkenest-error{
+  .darkenest(@error)
+}
+
+
+.color-lighten-success{
+  .lighten(@success)
+}
+.color-lightener-success{
+  .lightener(@success)
+}
+.color-lightenest-success{
+  .lightenest(@success)
+}
+.color-darken-success{
+  .darken(@success)
+}
+.color-darkener-success{
+  .darkener(@success)
+}
+.color-darkenest-success{
+  .darkenest(@success)
+}
+
+.color-lighten-warning{
+  .lighten(@warning)
+}
+.color-lightener-warning{
+  .lightener(@warning)
+}
+.color-lightenest-warning{
+  .lightenest(@warning)
+}
+.color-darken-warning{
+  .darken(@warning)
+}
+.color-darkener-warning{
+  .darkener(@warning)
+}
+.color-darkenest-warning{
+  .darkenest(@warning)
+}
+
+
+.color-lighten-red{
+  .lighten(@red)
+}
+.color-lightener-red{
+  .lightener(@red)
+}
+.color-lightenest-red{
+  .lightenest(@red)
+}
+
+
+.color-lighten-grey{
+  .lighten(grey)
+}
+.color-lightener-grey{
+  .lightener(grey)
+}
+.color-lightenest-grey{
+  .lightenest(grey)
+}
+.color-darken-grey{
+  .darken(grey)
+}
+.color-darkener-grey{
+  .darkener(grey)
+}
+.color-darkenest-grey{
+  .darkenest(grey)
+}
+
+
+
+
+
+/*.color{
+.bg-lightenest(#bcdafa)
+}*/
+.bg-color-primary{
+  background-color:@primary
+}
+.bg-color-light-primary{
+  background-color:@light-primary
+}
+.bg-color-dark-primary{
+  background-color:@dark-primary
+}
+.bg-color-error{
+  background-color:@error
+}
+.bg-color-info{
+  background-color:@info
+}
+.bg-color-success{
+  background-color:@success
+}
+.bg-color-warning{
+  background-color:@warning
+}
+/*        self define color     */
+.bg-color-white{
+  background-color:@white;
+}
+.bg-color-red{
+  background-color:@red;
+}
+.bg-color-grey{
+  background-color:grey;
+}
+.bg-color-silver{
+  background-color: silver;
+}
+
+
+
+
+
+
+.bg-color-lighten-primary{
+  .bg-lighten(@primary);
+}
+.bg-color-lightener-primary{
+  .bg-lightener(@primary);
+}
+.bg-color-lightenest-primary{
+  .bg-lightenest(@primary);
+}
+.bg-color-darken-primary{
+  .bg-darken(@primary);
+}
+.bg-color-darkener-primary{
+  .bg-darkener(@primary);
+}
+.bg-color-darkenest-primary{
+  .bg-darkenest(@primary);
+}
+
+
+.bg-color-lighten-error{
+  .bg-lighten(@error);
+}
+.bg-color-lightener-error{
+  .bg-lightener(@error);
+}
+.bg-color-lightenest-error{
+  .bg-lightenest(@error);
+}
+.bg-color-darken-error{
+  .bg-darken(@error);
+}
+.bg-color-darkener-error{
+  .bg-darkener(@error);
+}
+.bg-color-darkenest-error{
+  .bg-darkenest(@error);
+}
+
+
+.bg-color-lighten-success{
+  .bg-lighten(@success);
+}
+.bg-color-lightener-success{
+  .bg-lightener(@success);
+}
+.bg-color-lightenest-success{
+  .bg-lightenest(@success);
+}
+.bg-color-darken-success{
+  .bg-darken(@success);
+}
+.bg-color-darkener-success{
+  .bg-darkener(@success);
+}
+.bg-color-darkenest-success{
+  .bg-darkenest(@success);
+}
+
+
+.bg-color-lighten-warning{
+  .bg-lighten(@warning);
+}
+.bg-color-lightener-warning{
+  .bg-lightener(@warning);
+}
+.bg-color-lightenest-warning{
+  .bg-lightenest(@warning);
+}
+.bg-color-darken-warning{
+  .bg-darken(@warning);
+}
+.bg-color-darkener-warning{
+  .bg-darkener(@warning);
+}
+.bg-color-darkenest-warning{
+  .bg-darkenest(@warning);
+}
+
+.bg-color-darken-white{
+  .bg-darken(white)
+}
+.bg-color-darkener-white{
+  .bg-darkener(white)
+}
+.bg-color-darkenest-white{
+  .bg-darkenest(white)
+}
+
+
+
+
+
+.border-color-grey{
+  border-color: #333333;
+}
+
+

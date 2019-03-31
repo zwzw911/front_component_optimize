@@ -1,0 +1,111 @@
+/**************************************************************/
+/**************** radius ************************/
+/**************************************************************/
+.radius1 {
+  border-radius: 2px;
+}
+.radius2 {
+  border-radius: 4px;
+}
+.radius3 {
+  border-radius: 6px;
+}
+.radius4 {
+  border-radius: 8px;
+}
+.radius5 {
+  border-radius: 10px;
+}
+.radius6 {
+  border-radius: 12px;
+}
+.radius7 {
+  border-radius: 14px;
+}
+/*
+* name: top-left/top-right/bottom-left/bottom-right
+*/
+.top-left-radius1 {
+  border-top-left-radius: 2px;
+}
+.top-left-radius2 {
+  border-top-left-radius: 4px;
+}
+.top-left-radius3 {
+  border-top-left-radius: 6px;
+}
+.top-left-radius4 {
+  border-top-left-radius: 8px;
+}
+.top-left-radius5 {
+  border-top-left-radius: 10px;
+}
+.top-left-radius6 {
+  border-top-left-radius: 12px;
+}
+.top-left-radius7 {
+  border-top-left-radius: 14px;
+}
+.top-right-radius1 {
+  border-top-right-radius: 2px;
+}
+.top-right-radius2 {
+  border-top-right-radius: 4px;
+}
+.top-right-radius3 {
+  border-top-right-radius: 6px;
+}
+.top-right-radius4 {
+  border-top-right-radius: 8px;
+}
+.top-right-radius5 {
+  border-top-right-radius: 10px;
+}
+.top-right-radius6 {
+  border-top-right-radius: 12px;
+}
+.top-right-radius7 {
+  border-top-right-radius: 14px;
+}
+.bottom-left-radius1 {
+  border-bottom-left-radius: 2px;
+}
+.bottom-left-radius2 {
+  border-bottom-left-radius: 4px;
+}
+.bottom-left-radius3 {
+  border-bottom-left-radius: 6px;
+}
+.bottom-left-radius4 {
+  border-bottom-left-radius: 8px;
+}
+.bottom-left-radius5 {
+  border-bottom-left-radius: 10px;
+}
+.bottom-left-radius6 {
+  border-bottom-left-radius: 12px;
+}
+.bottom-left-radius7 {
+  border-bottom-left-radius: 14px;
+}
+.bottom-right-radius1 {
+  border-bottom-right-radius: 2px;
+}
+.bottom-right-radius2 {
+  border-bottom-right-radius: 4px;
+}
+.bottom-right-radius3 {
+  border-bottom-right-radius: 6px;
+}
+.bottom-right-radius4 {
+  border-bottom-right-radius: 8px;
+}
+.bottom-right-radius5 {
+  border-bottom-right-radius: 10px;
+}
+.bottom-right-radius6 {
+  border-bottom-right-radius: 12px;
+}
+.bottom-right-radius7 {
+  border-bottom-right-radius: 14px;
+}

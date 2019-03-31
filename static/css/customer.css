@@ -1,0 +1,10 @@
+#app {
+  height: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  overflow: no-display;
+}
+body {
+  padding-bottom: 0px;
+}

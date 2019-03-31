@@ -1,0 +1,120 @@
+
+.h1 {
+  font-size: 36px;
+}
+
+.h2 {
+  font-size: 30px;
+}
+
+.h3 {
+  font-size: 24px ;
+}
+
+.h4 {
+  font-size: 18px;
+}
+
+.h5 {
+  font-size: 14px;
+}
+
+.h6 {
+  font-size: 12px;
+}
+.h7 {
+  font-size: 10px;
+}
+.h8 {
+  font-size: 8px;
+}
+h1{.h1}
+h2{.h2}
+h3{.h3}
+h4{.h4}
+h5{.h5}
+h6{.h6}
+/*    变量      */
+.inputH1-height{
+  height: 70px;
+}
+.inputH2-height{
+  height: 60px;
+}
+.inputH3-height{
+  height: 50px;
+}
+.inputH4-height{
+  height: 40px;
+}
+.inputH5-height{
+  height: 36px;
+}
+.inputH6-height{
+  height: 32px;
+}
+.inputH7-height{
+  height: 24px;
+}
+
+
+/**************************/
+/**************************/
+.inputH1 input,.inputH1 textarea{
+  .h1 !important;
+  padding:14px 7px;
+  .inputH1-height !important;
+}
+.inputH2 input,.inputH2 textarea{
+  .h2 !important;
+  padding:12px 7px;
+  .inputH2-height !important;
+}
+.inputH3 input,.inputH3 textarea{
+  .h3 !important;
+  padding:10px 7px !important;
+  .inputH3-height !important;
+}
+.inputH4 input,.inputH4 textarea{
+  .h4 !important;
+  padding:8px 7px;
+  .inputH4-height !important;
+}
+.inputH5 input,.inputH5 textarea{
+  .h5 !important;
+  padding:6px 7px;
+  .inputH5-height !important;
+}
+.inputH6 input,.inputH6 textarea{
+  .h6 !important;
+  padding:4px 7px;
+  .inputH6-height !important;
+}
+.inputH7 input,.inputH7 textarea{
+  .h6 !important; //font-size same as h6
+  padding:1px 7px;
+  .inputH7-height !important;
+}
+
+
+/*.inputLabel-loop(@max,@i:1) when (@max>=@i){
+  .inputLabelH@{i}>label{ e(".h"@{i})  }
+  .inputLabel-loop(@max,(@i+1));
+}
+.inputLabel-loop(7);*/
+
+.inputLabelH1>label{.h1 !important;}
+.inputLabelH2>label{.h2 !important;}
+.inputLabelH3>label{.h3 !important;}
+.inputLabelH4>label{.h4 !important;}
+.inputLabelH5>label{.h5 !important;}
+.inputLabelH6>label{.h6 !important;}
+.inputLabelH7>label{.h7 !important;}
+
+.inputLabelH1>label:before{.h1 !important;}
+.inputLabelH2>label:before{.h2 !important;}
+.inputLabelH3>label:before{.h3 !important;}
+.inputLabelH4>label:before{.h4 !important;}
+.inputLabelH5>label:before{.h5 !important;}
+.inputLabelH6>label:before{.h6 !important;}
+.inputLabelH7>label:before{.h7 !important;}

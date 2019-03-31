@@ -1,0 +1,26 @@
+/**************************************************************/
+/**************** radius ************************/
+/**************************************************************/
+@base-radius:2px;
+@max:7;
+
+.radius-loop(@max,@i:1) when (@max>=@i){
+  .radius@{i}{ border-radius: @base-radius * @i; }
+  .radius-loop(@max,(@i+1));
+}
+.radius-loop(@max);
+
+/*
+* name: top-left/top-right/bottom-left/bottom-right
+*/
+.radius-specific-loop(@max,@name,@i:1) when (@max>=@i){
+  .@{name}-radius@{i}{ border-@{name}-radius: @base-radius * @i; }
+  .radius-specific-loop(@max,@name,(@i+1));
+}
+.radius-specific-loop(@max,top-left);
+.radius-specific-loop(@max,top-right);
+.radius-specific-loop(@max,bottom-left);
+.radius-specific-loop(@max,bottom-right);
+
+
+

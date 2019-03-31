@@ -1,0 +1,33 @@
+.font-serif {
+  font-family: Serif;
+}
+.font-serif-ST {
+  font-family: SimSun;
+}
+.font-serif-Arial {
+  font-family: Arial;
+}
+.font-sans-serif {
+  font-family: sans-serif;
+}
+.font-sans-serif-YH {
+  font-family: "Microsoft YaHei";
+}
+.font-sans-serif-HT {
+  font-family: SimHei ;
+}
+.font-monospace {
+  font-family: monospace;
+}
+.font-fantasy {
+  font-family: fantasy;
+}
+.font-cursive {
+  font-family: cursive;
+}
+.bold {
+  font-weight: bold;
+}
+.bolder {
+  font-weight: bolder;
+}

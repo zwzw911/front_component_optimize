@@ -1,0 +1,75 @@
+.inputUnEditAbleBase{
+  background: none ;
+  outline: none ;
+  border: 0px ;
+  box-shadow: 0 0 0 0;  //cover ivu-input:focus
+  cursor: default; //cover ivu-input:hover
+}
+
+.inputUnEditAble input{
+  .inputUnEditAbleBase
+}
+
+.inputUnEditAble input:focus{
+  .inputUnEditAbleBase
+}
+
+.inputUnEditAble textarea{
+  .inputUnEditAbleBase
+}
+
+.inputUnEditAble textarea:focus{
+  .inputUnEditAbleBase
+}
+
+
+
+.cursorPointer:hover {
+  cursor: pointer;
+}
+
+
+
+.hidden{
+  visibility: hidden;
+}
+.inputLabel-hidden label{
+  .hidden;
+}
+
+.noStarForRequire>label{
+   content: '' !important;
+ }
+.noStarForRequire>label:before{
+  content: '' !important;
+}
+
+
+.inputLabelAlignLeft>label{
+  text-align: left !important;
+}
+.inputLabelAlignLeft>label:before{
+  text-align: left !important;
+}
+
+.inputNoLabelWidth > label {
+  display:none !important;
+}
+.inputNoLabelWidth > div {
+  margin-left:0px !important;
+}
+
+.inputDisabled input{
+  background-color: transparent !important;
+  cursor: default !important;
+}
+
+/** use !important to overwrite iview class **/
+.primaryButtonDisable{
+  background-color:hsl(211, 87.0%, 75.9%) !important;
+  color:hsl(31, 87%, 75.9%) !important;
+}
+/**   wangEditor  **/
+.wangEditor-error-border{
+  border:1px solid #ed4014;
+}

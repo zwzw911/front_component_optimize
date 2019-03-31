@@ -1,0 +1,169 @@
+body {
+  padding: 50px;
+}
+.long-word-break {
+  word-break: break-all;
+  word-wrap: break-word;
+}
+.page_bg {
+  background: -webkit-gradient(linear, left top, left bottom, from(#fffff0), to(#ffffe8));
+  background: linear-gradient(to bottom, #fffff0, #ffffe8);
+}
+.page_ele_bg {
+  background-color: #fafafa;
+}
+.page_border {
+  border-radius: 5px;
+  border: 1px solid #d0d0d0;
+}
+.line-break {
+  word-break: break-all;
+  /*for long englis word*/
+  word-wrap: break-word;
+}
+.spinner-midpoint {
+  top: 50%;
+  left: 50%;
+  position: relative;
+  height: 60px;
+  width: 120px;
+  margin: 0px ;
+}
+.top {
+  vertical-align: top;
+}
+.center {
+  text-align: center;
+}
+.auto_center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.readonly {
+  border: none;
+  opacity: 1;
+  color: black;
+}
+/*
+*   finance only
+*/
+/*aside>div>span:first-of-type{
+  .marginT4
+}
+aside>div>span:not(:first-of-type){
+  .marginV4
+}*/
+/* 上下较紧凑的page-header */
+.page-header-narrow {
+  padding-bottom: 9px;
+  margin: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+/**************************************************************/
+/**************** border ************************/
+/**************************************************************/
+.cursor-pointer {
+  cursor: pointer;
+}
+/*
+**********************************************************
+*******************  auto complete   *********************
+**********************************************************
+*/
+.ac-container {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+  z-index: 999;
+}
+.ac-container .ac-menu {
+  border: 1px solid #ccc;
+  list-style: none;
+  padding: 0;
+  background-color: white;
+  -webkit-box-shadow: 0 3px 7px 0px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 3px 7px 0px rgba(0, 0, 0, 0.15);
+  margin: 0;
+}
+.ac-container .ac-menu .ac-menu-item {
+  border-bottom: 0px dotted #ccc;
+  line-height: 25px;
+  margin: 0;
+  padding: 0 20px;
+}
+.ac-container .ac-menu .ac-menu-item:last-child {
+  border-bottom: 0;
+}
+.ac-container .ac-menu .ac-menu-item:hover {
+  background-color: #e0eaff;
+}
+.ac-container .ac-menu a {
+  padding-left: 5px;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+.ac-container .ac-menu .ac-state-focus {
+  outline: none;
+  background-color: #e0eaff;
+}
+/*
+**********************************************************
+*******************  finance   ***************************
+**********************************************************
+*/
+/*
+* 从bootstrap.css中copy出。因为import不起作用
+*/
+/*
+* 只有less才能把class作为内容引用，css不行（css只能设置属性）
+*/
+.tabBorder {
+  border-top: 1px solid silver;
+  border-left: 1px solid silver;
+  border-right: 1px solid silver;
+}
+.content-border {
+  border: 1px solid silver;
+}
+#configuration > span:hover,
+#bill > span:hover {
+  border-top: 1px solid silver;
+  border-left: 1px solid silver;
+  border-right: 1px solid silver;
+  cursor: pointer;
+}
+#configuration > span.activate,
+#bill > span.activate {
+  background: -moz-linear-gradient(#ffffff, #fdfdfd);
+  border-top: 1px solid silver;
+  border-left: 1px solid silver;
+  border-right: 1px solid silver;
+  -webkit-box-shadow: 2px 0px 0px 0px silver;
+          box-shadow: 2px 0px 0px 0px silver;
+}
+.activeQueryValue > span.fa {
+  color: transparent;
+}
+.activeQueryValue:hover > span.fa {
+  color: red;
+}
+/*    为了计算当前内容，以便决定footer的位置
+*     直接使用col-lg-12，因为是float，无法获得内容的高度，所以新设no-float
+*/
+.col-lg-12-no-float,
+.col-lg-4-no-float,
+.col-md-12-no-float,
+.col-sm-12-no-float,
+.col-xs-12-no-float {
+  width: 100%;
+  padding: 0 15px;
+}
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+/**   article tree    **/

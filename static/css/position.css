@@ -1,0 +1,49 @@
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
+/*      width       */
+.width1 {
+  width: 10%;
+}
+.width2 {
+  width: 20%;
+}
+.width3 {
+  width: 30%;
+}
+.width4 {
+  width: 40%;
+}
+.width5 {
+  width: 50%;
+}
+.width6 {
+  width: 60%;
+}
+.width7 {
+  width: 70%;
+}
+.width8 {
+  width: 80%;
+}
+.width9 {
+  width: 90%;
+}
+.width10 {
+  width: 100%;
+}
+/*    text align    */
+.text-align-left {
+  text-align: left;
+}
+.text-align-right {
+  text-align: right;
+}
+/**   footer 底部福鼎   **/
+/*.footerBottomFixed{
+  height: 50px;
+  margin-top: -50px;
+}*/

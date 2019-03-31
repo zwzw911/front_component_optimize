@@ -1,0 +1,59 @@
+/*
+*   公式
+*/
+/**************************************************************/
+/**************** flex-flow ************************/
+/**************************************************************/
+
+.flex-flow(@direction,@wrap){
+  display: flex;
+  flex-flow: @direction @wrap;
+}
+
+
+//横排-不换行
+.flex-flow-row-nowrap{
+  .flex-flow(row,nowrap)
+}
+.flex-flow-row-nowrap-reverse{
+  .flex-flow(row-reverse,nowrap)
+}
+//横排-换行
+.flex-flow-row-wrap{
+  .flex-flow(row,wrap)
+}
+//竖排-不换行
+.flex-flow-column-nowrap{
+  .flex-flow(column,nowrap)
+}
+//竖排-换行
+.flex-flow-column-wrap{
+  .flex-flow(column,wrap)
+}
+
+
+/*
+* type: justify-content/align-items/align-content
+* val: @list的某个元素，只能放在参数中，不能放入函数内
+*/
+.common-align-justify-loop(@type,@list,@idx:1,@val:extract(@list,@idx)) when (length(@list)>=@idx){
+  .@{type}-@{val}{ @{type}: @val; }
+  .common-align-justify-loop(@type,@list,(@idx+1));
+}
+
+/*  单行，主轴 */
+@list-justify-content: flex-start,flex-end,center,space-between,space-around;
+.common-align-justify-loop(justify-content,@list-justify-content);
+/*  单行，辅轴 */
+@list-align-items: flex-start,flex-end,center,stretch,baseline;
+.common-align-justify-loop(align-items,@list-align-items);
+/*  多行，辅轴 */
+@list-align-content: flex-start,flex-end,center,stretch,space-between,space-around;
+.common-align-justify-loop(align-content,@list-align-content);
+
+
+.flex-grow-loop(@max,@i:1) when(@max>=@i){
+  .flex-grow-@{i}{flex-grow:@i;}
+  .flex-grow-loop(@max,(@i+1))
+}
+.flex-grow-loop(3);

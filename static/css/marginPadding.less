@@ -1,0 +1,176 @@
+/**************************************************************/
+/**************** margin padding height  **********************/
+/**************************************************************/
+
+
+
+/**************************************************************/
+/*********************    公式  *******************************/
+/**************************************************************/
+@base:5px;
+@max:7;
+
+.marginL-loop(@max,@i:1) when (@max>=@i){
+  .marginL@{i}{ margin-left: @base*@i }
+  .marginL-loop(@max,(@i+1));
+}
+.marginL-loop(@max);
+.marginLX{
+  margin-left: @base * 20;
+}
+
+.marginR-loop(@max,@i:1) when (@max>=@i){
+  .marginR@{i}{ margin-right: @base*@i }
+  .marginR-loop(@max,(@i+1));
+}
+.marginR-loop(@max);
+.marginRX{
+  margin-right: @base * 20;
+}
+
+.marginT-loop(@max,@i:1) when (@max>=@i){
+  .marginT@{i}{ margin-top: @base*@i }
+  .marginT-loop(@max,(@i+1));
+}
+.marginT-loop(@max);
+.marginTX{
+  margin-top: @base * 20;
+}
+
+.marginB-loop(@max,@i:1) when (@max>=@i){
+  .marginB@{i}{ margin-bottom: @base*@i }
+  .marginB-loop(@max,(@i+1));
+}
+.marginB-loop(@max);
+.marginBX{
+  margin-bottom: @base * 20;
+}
+
+.marginV-loop(@max,@i:1) when (@max>=@i){
+  .marginV@{i}{ margin-top: @base*@i;margin-bottom: @base*@i }
+  .marginV-loop(@max,(@i+1));
+}
+.marginV-loop(@max);
+.marginVX{
+  margin-top: @base * 20;
+  margin-bottom: @base * 20;
+}
+
+.marginH-loop(@max,@i:1) when (@max>=@i){
+  .marginH@{i}{ margin-left: @base*@i;margin-right: @base*@i }
+  .marginH-loop(@max,(@i+1));
+}
+.marginH-loop(@max);
+.marginHX{
+  margin-left: @base * 20;
+  margin-right: @base * 20;
+}
+
+.marginAll-loop(@max,@i:1) when (@max>=@i){
+  .marginAll@{i}{ margin: @base*@i; }
+  .marginAll-loop(@max,(@i+1));
+}
+.marginAll-loop(@max);
+.marginAllX{
+  margin: @base * 20;
+}
+
+
+
+.paddingL-loop(@max,@i:1) when (@max>=@i){
+  .paddingL@{i}{ padding-left: @base*@i }
+  .paddingL-loop(@max,(@i+1));
+}
+.paddingL-loop(@max);
+.paddingLX{
+  padding-left: @base * 20;
+}
+
+.paddingR-loop(@max,@i:1) when (@max>=@i){
+  .paddingR@{i}{ padding-right: @base*@i }
+  .paddingR-loop(@max,(@i+1));
+}
+.paddingR-loop(@max);
+.paddingRX{
+  padding-right: @base * 20;
+}
+
+.paddingT-loop(@max,@i:1) when (@max>=@i){
+  .paddingT@{i}{ padding-top: @base*@i }
+  .paddingT-loop(@max,(@i+1));
+}
+.paddingT-loop(@max);
+.paddingTX{
+  padding-top: @base * 20;
+}
+
+.paddingB-loop(@max,@i:1) when (@max>=@i){
+  .paddingB@{i}{ padding-bottom: @base*@i }
+  .paddingB-loop(@max,(@i+1));
+}
+.paddingB-loop(@max);
+.paddingBX{
+  padding-bottom: @base * 20;
+}
+
+.paddingV-loop(@max,@i:1) when (@max>=@i){
+  .paddingV@{i}{ padding-top: @base*@i;padding-bottom: @base*@i }
+  .paddingV-loop(@max,(@i+1));
+}
+.paddingV-loop(@max);
+.paddingVX{
+  padding-top: @base * 20;
+  padding-bottom: @base * 20;
+}
+
+.paddingH-loop(@max,@i:1) when (@max>=@i){
+  .paddingH@{i}{ padding-left: @base*@i;padding-right: @base*@i }
+  .paddingH-loop(@max,(@i+1));
+}
+.paddingH-loop(@max);
+.paddingHX{
+  padding-left: @base * 20;
+  padding-right: @base * 20;
+}
+
+.paddingAll-loop(@max,@i:1) when (@max>=@i){
+  .paddingAll@{i}{ padding: @base*@i; }
+  .paddingAll-loop(@max,(@i+1));
+}
+.paddingAll-loop(@max);
+.paddingAllX{
+  padding: @base * 20;
+}
+
+
+
+
+
+.height-loop(@max,@i:1) when (@max>=@i){
+  .height@{i}{ height: @base*@i }
+
+  .height-loop(@max,(@i+1));
+}
+.height-loop(@max);
+
+
+
+
+/**************************************************************/
+/*********************    具体  *******************************/
+/**************************************************************/
+
+.delete-padding-1{
+  margin-left:-15px;
+}
+.delete-padding-2{
+  margin-left:-30px;
+}
+.delete-padding-3{
+  margin-left:-45px;
+}
+
+
+.autoGenAnchorToDeleteMarginLeft>div{
+  margin-left: 0 !important;
+}

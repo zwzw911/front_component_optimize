@@ -1,0 +1,256 @@
+/*
+*   公式
+*/
+/**************************************************************/
+/**************** color  ************************/
+/**************************************************************/
+.bg-linear-gradient {
+  background: -webkit-gradient(linear, left top, right top, from(#ffffff), to(#bcdafa));
+  background: linear-gradient(90deg, #ffffff, #bcdafa);
+}
+/*        iview basic color     */
+.color-primary {
+  color: hsl(211, 86.7%, 55.9%);
+}
+.color-light-primary {
+  color: hsl(211, 100%, 68%);
+}
+.color-dark-primary {
+  color: hsl(211, 77.4%, 53.1%);
+}
+.color-error {
+  color: hsl(12, 85.8%, 50.4%);
+}
+.color-info {
+  color: hsl(211, 86.7%, 55.9%);
+}
+.color-success {
+  color: hsl(150, 76.7%, 42.2%);
+}
+.color-warning {
+  color: hsl(36, 100%, 50%);
+}
+/*        self define color     */
+.color-white {
+  color: #ffffff;
+}
+.color-red {
+  color: #ff0000;
+}
+.color-grey {
+  color: grey;
+}
+.color-lightener-primary {
+  color: hsl(211, 100%, 88%);
+}
+.color-lightenest-primary {
+  color: hsl(211, 100%, 98%);
+}
+.color-darkener-primary {
+  background-color: hsl(211, 77.4%, 33.1%);
+}
+.color-darkenest-primary {
+  background-color: hsl(211, 77.4%, 23.1%);
+}
+.color-lighten-error {
+  color: hsl(12, 85.8%, 60.4%);
+}
+.color-lightener-error {
+  color: hsl(12, 85.8%, 70.4%);
+}
+.color-lightenest-error {
+  color: hsl(12, 85.8%, 80.4%);
+}
+.color-darken-error {
+  color: hsl(12, 85.8%, 40.4%);
+}
+.color-darkener-error {
+  color: hsl(12, 85.8%, 30.4%);
+}
+.color-darkenest-error {
+  color: hsl(12, 85.8%, 20.4%);
+}
+.color-lighten-success {
+  color: hsl(150, 76.7%, 52.2%);
+}
+.color-lightener-success {
+  color: hsl(150, 76.7%, 62.2%);
+}
+.color-lightenest-success {
+  color: hsl(150, 76.7%, 72.2%);
+}
+.color-darken-success {
+  color: hsl(150, 76.7%, 32.2%);
+}
+.color-darkener-success {
+  color: hsl(150, 76.7%, 22.2%);
+}
+.color-darkenest-success {
+  color: hsl(150, 76.7%, 12.2%);
+}
+.color-lighten-warning {
+  color: hsl(36, 100%, 60%);
+}
+.color-lightener-warning {
+  color: hsl(36, 100%, 70%);
+}
+.color-lightenest-warning {
+  color: hsl(36, 100%, 80%);
+}
+.color-darken-warning {
+  color: hsl(36, 100%, 40%);
+}
+.color-darkener-warning {
+  color: hsl(36, 100%, 30%);
+}
+.color-darkenest-warning {
+  color: hsl(36, 100%, 20%);
+}
+.color-lighten-red {
+  color: #ff3333;
+}
+.color-lightener-red {
+  color: #ff6666;
+}
+.color-lightenest-red {
+  color: #ff9999;
+}
+.color-lighten-grey {
+  color: #9a9a9a;
+}
+.color-lightener-grey {
+  color: #b3b3b3;
+}
+.color-lightenest-grey {
+  color: #cdcdcd;
+}
+.color-darken-grey {
+  color: #676767;
+}
+.color-darkener-grey {
+  color: #4d4d4d;
+}
+.color-darkenest-grey {
+  color: #343434;
+}
+/*.color{
+.bg-lightenest(#bcdafa)
+}*/
+.bg-color-primary {
+  background-color: hsl(211, 86.7%, 55.9%);
+}
+.bg-color-light-primary {
+  background-color: hsl(211, 100%, 68%);
+}
+.bg-color-dark-primary {
+  background-color: hsl(211, 77.4%, 53.1%);
+}
+.bg-color-error {
+  background-color: hsl(12, 85.8%, 50.4%);
+}
+.bg-color-info {
+  background-color: hsl(211, 86.7%, 55.9%);
+}
+.bg-color-success {
+  background-color: hsl(150, 76.7%, 42.2%);
+}
+.bg-color-warning {
+  background-color: hsl(36, 100%, 50%);
+}
+/*        self define color     */
+.bg-color-white {
+  background-color: #ffffff;
+}
+.bg-color-red {
+  background-color: #ff0000;
+}
+.bg-color-grey {
+  background-color: grey;
+}
+.bg-color-silver {
+  background-color: silver;
+}
+.bg-color-lighten-primary {
+  background-color: hsl(211, 86.7%, 65.9%);
+}
+.bg-color-lightener-primary {
+  background-color: hsl(211, 86.7%, 75.9%);
+}
+.bg-color-lightenest-primary {
+  background-color: hsl(211, 86.7%, 85.9%);
+}
+.bg-color-darken-primary {
+  background-color: hsl(211, 86.7%, 45.9%);
+}
+.bg-color-darkener-primary {
+  background-color: hsl(211, 86.7%, 35.9%);
+}
+.bg-color-darkenest-primary {
+  background-color: hsl(211, 86.7%, 25.9%);
+}
+.bg-color-lighten-error {
+  background-color: hsl(12, 85.8%, 60.4%);
+}
+.bg-color-lightener-error {
+  background-color: hsl(12, 85.8%, 70.4%);
+}
+.bg-color-lightenest-error {
+  background-color: hsl(12, 85.8%, 80.4%);
+}
+.bg-color-darken-error {
+  background-color: hsl(12, 85.8%, 40.4%);
+}
+.bg-color-darkener-error {
+  background-color: hsl(12, 85.8%, 30.4%);
+}
+.bg-color-darkenest-error {
+  background-color: hsl(12, 85.8%, 20.4%);
+}
+.bg-color-lighten-success {
+  background-color: hsl(150, 76.7%, 52.2%);
+}
+.bg-color-lightener-success {
+  background-color: hsl(150, 76.7%, 62.2%);
+}
+.bg-color-lightenest-success {
+  background-color: hsl(150, 76.7%, 72.2%);
+}
+.bg-color-darken-success {
+  background-color: hsl(150, 76.7%, 32.2%);
+}
+.bg-color-darkener-success {
+  background-color: hsl(150, 76.7%, 22.2%);
+}
+.bg-color-darkenest-success {
+  background-color: hsl(150, 76.7%, 12.2%);
+}
+.bg-color-lighten-warning {
+  background-color: hsl(36, 100%, 60%);
+}
+.bg-color-lightener-warning {
+  background-color: hsl(36, 100%, 70%);
+}
+.bg-color-lightenest-warning {
+  background-color: hsl(36, 100%, 80%);
+}
+.bg-color-darken-warning {
+  background-color: hsl(36, 100%, 40%);
+}
+.bg-color-darkener-warning {
+  background-color: hsl(36, 100%, 30%);
+}
+.bg-color-darkenest-warning {
+  background-color: hsl(36, 100%, 20%);
+}
+.bg-color-darken-white {
+  background-color: #e6e6e6;
+}
+.bg-color-darkener-white {
+  background-color: #cccccc;
+}
+.bg-color-darkenest-white {
+  background-color: #b3b3b3;
+}
+.border-color-grey {
+  border-color: #333333;
+}
