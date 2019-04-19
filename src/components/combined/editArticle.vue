@@ -21,6 +21,12 @@
                         :inputActionSetting="inputActionSetting"
                         @onBlur="checkWholeStatus">
         </self-form-item-input>
+        <!--@onBlur="checkWholeStatus"-->
+        <self-form-item-auto-gen :inputCheckInfo="inputCheckInfo" fieldName="tags"
+                                 :inputAppearanceSetting="inputAppearanceSetting"
+                                 :inputGlobalAppearanceSetting="inputGlobalAppearanceSetting"
+                                 :inputActionSetting="inputActionSetting">
+        </self-form-item-auto-gen>
         <self-form-item-select
           :inputCheckInfo="inputCheckInfo" fieldName="status"
           :inputAppearanceSetting="inputAppearanceSetting"
@@ -62,6 +68,7 @@
   import selfFormItemTextarea from '../basic/formItem/formItemTextarea'
   import selfFormItemSelect from '../basic/formItem/formItemSelect'
   import selfFormItemInput from '../basic/formItem/formItemInput'
+  import selfFormItemAutoGen from '../basic/formItem/formItemAutoGen'
   /******************************/
   /**          网络            **/
   /******************************/
@@ -96,7 +103,7 @@
   import * as formItemHelper from '../formItemHelper'
 
     export default {
-      components:{selfFormItemInput,selfFormItemTextarea,selfFormItemSelect},
+      components:{selfFormItemInput,selfFormItemAutoGen, selfFormItemTextarea,selfFormItemSelect},
       // props: {'articleInfo':{type:Object}},
       async created(){
         // inf('this.articleInfo.formItemInfo.inputValue',this.articleInfo.formItemInfo.inputValue)
@@ -231,6 +238,10 @@
                 //iconColor:, //icon颜色
                 editable:true,//boolean。确定是否采用类inputUnEditAble，实现input无边框和readonly的效果
                 //isPassword:true,
+                labelPosition:'left',//must same as Form setting
+                labelWidth:this.labelWidth,//must same as Form?
+
+                addButtonSize:undefined, //h1~h6，未设置，默认和labelSize一样
               }
             },
             inputGlobalAppearanceSetting:{

@@ -1,6 +1,7 @@
 /**
  * Created by 张伟 on 2019/03/13.
  */
+
 'use strict'
 
 import {inputValueForCreate,inputValueForUpdate} from '../constant/input/gen/inputValue'
@@ -11,7 +12,7 @@ import {ruleForCreate,ruleForUpdate} from '../constant/input/gen/rule'
 import{additionalInput} from '../constant/input/additionalInput'
 // import {icon} from '../constant/inputValue/manual/icon'
 // import {extraAttribute} from '../constant/inputValue/manual/extraAttribute'
-import {InputAttributeFieldName} from '../constant/enum/nonValueEnum'
+import {InputAttributeFieldName, InputTempDataFieldName} from '../constant/enum/nonValueEnum'
 import {numRange} from '../constant/input/gen/numRange'
 
 /*import {additionalInputAttribute} from '../constant/additionalInputValue/inputAttribute'
@@ -67,13 +68,24 @@ function genNeedInput({collName,allowFields,additionalFields,method='create'}) {
     // icon:objectPartlyDeepCopy({sourceObj:source['icon'][collName],expectedKey:allowFields}),
     numRange:objectPartlyDeepCopy({sourceObj:source['numRange'][collName],expectedKey:allowFields}),//如果是autoGen，最多几个input
 
-    /*      autoGen暂时不是自动生成     */
-/*    inputArrayAttribute:{},//对于需要autoGen的字段，需要为每个元素存储attribute（使用attribute中的placeHolder）
+    /*      autoGen     */
+    /**   只产生对象，具体哪个字段需要，在formItemAutoGen中，再行设置（而不是在genNeedInput当前这个函数生成 ）  **/
+    inputArrayAttribute:{},//对于需要autoGen的字段，需要为每个元素存储attribute（使用attribute中的placeHolder）
     inputArrayTempData:{},//对于需要autoGen的字段，需要为每个元素存储tempData（存储验证结果）
+    // addItemButtonDisable:{},//每个可以autoGen的字段，addItemButton的状态  //每个组件内部自定义
 
-    addItemButtonDisable:{},//每个可以autoGen的字段，addItemButton的状态*/
   }
   // inf('finalResult。icon',finalResult.icon)
+//2. rule添加元素rule
+  //某些字段是数组，需要把元素的rule也包含
+  for(let singleFieldName of allowFields){
+    let eleFieldName=`${singleFieldName}.0`
+    // console.log('eleFieldName',eleFieldName)
+    if(undefined!==source['rule'][collName][eleFieldName]){
+
+      finalResult.rule[eleFieldName]=objectDeepCopy(source['rule'][collName][eleFieldName])
+    }
+  }
 
   /*//2. 合并字段额外的定义（inputAttribute）
   let sourceInputAttribute=finalResult['inputAttribute']
@@ -100,6 +112,11 @@ function genNeedInput({collName,allowFields,additionalFields,method='create'}) {
       finalResult.inputValue[singleFieldName]=objectDeepCopy(additionalInput[singleFieldName]['inputValue'])
       // finalResult.icon[singleFieldName]=  objectDeepCopy(additionalIcon[singleFieldName])
       finalResult.rule[singleFieldName]=objectDeepCopy(additionalInput[singleFieldName]['rule'])
+      //某些字段是数组，需要把元素的rule也包含
+      let eleFieldName=`${singleFieldName}.0`
+      if(undefined!==additionalInput[eleFieldName]['rule']){
+        finalResult.rule[eleFieldName]=objectDeepCopy(additionalInput[eleFieldName]['rule'])
+      }
       // console.log('additionalInput[singleFieldName]',additionalInput[singleFieldName])
     }
   }
@@ -160,21 +177,34 @@ function genNeedInput({collName,allowFields,additionalFields,method='create'}) {
 
   // inf('2finalResult.inputValue.tags',finalResult.inputValue.tags)
   //5. 检查inputAttribute的autoGen属性，判断是否要生成autoGen字段对应的数据
-  /*for(let singleFieldName in finalResult.inputAttribute){
+  for(let singleFieldName in finalResult.inputAttribute){
     // inf(`singleFieldName`,singleFieldName)
     // inf('inputAttribute[singleFieldName][InputAttributeFieldName.AUTO_GEN]',finalResult.inputAttribute[singleFieldName][InputAttributeFieldName.AUTO_GEN])
 
-    //字段是autoGen
+    //字段是autoGen，只需初始化inputArrayTempData/inputArrayAttribute为空数组，具体设置的数组长度，在对应的formItem组件中进行（因为create/update设置的inputValue可能不一样）
     if(undefined!==finalResult.inputAttribute[singleFieldName][InputAttributeFieldName.AUTO_GEN] && true===finalResult.inputAttribute[singleFieldName][InputAttributeFieldName.AUTO_GEN]){
       // inf(`valida singleFieldName`,singleFieldName)
       finalResult.inputArrayAttribute[singleFieldName]=[]
       finalResult.inputArrayTempData[singleFieldName]=[]
-      finalResult.addItemButtonDisable[singleFieldName]=false //默认可以添加新元素
+     /* //只有是数组，才初始化inputArrayAttribute/inputArrayTempData，否则就是使用空数组（例如，如果inputValue是字符）
+      if(true===isArray(finalResult.inputValue[singleFieldName])){
+        if(finalResult.inputValue[singleFieldName].length>0){
+          let totalLength=finalResult.inputValue[singleFieldName].length
+          while (totalLength>0){
+            finalResult.inputArrayAttribute[singleFieldName].push(objectDeepCopy(finalResult.inputAttribute[singleFieldName]))
+            //update，认为验证结果是已经通过的
+            finalResult.inputArrayTempData[singleFieldName].push({[InputTempDataFieldName.VALID_RESULT]:''})
+            totalLength--
+          }
+        }
+      }*/
+
+      // finalResult.addItemButtonDisable[singleFieldName]=false //默认可以添加新元素
       //检查字段的rule，其中是否有max，且type为array的元素
       // finalResult.maxNum[singleFieldName]=singleEle['max']
 
     }
-  }*/
+  }
   // inf('3finalResult.maxNum.tags',finalResult.maxNum.tags)
   // console.log('finalResult',finalResult)
   return finalResult
@@ -388,6 +418,11 @@ function initFormItemInfo({formItemInfo}){
     }
   }
 }
+function isArray(obj) {
+  //return obj && typeof obj === 'object' && Array == obj.constructor;
+  return obj instanceof Array
+  // return typeof obj === 'object'  && obj!==null && Array == obj.constructor;
+}
 export {
   genNeedInput,
   mergeInputAttribute,
@@ -410,5 +445,6 @@ export {
 
   initFormItemInfo,
   // countDown,
+  isArray
 }
 

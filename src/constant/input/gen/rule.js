@@ -163,11 +163,25 @@ const ruleForCreate=
     ],
     "userPriority": [
       {
-        "required": false,
+        "required": true,
         "trigger": "blur,change",
         "message": "用户权限不能为空",
-        "type": "string"
+        "type": "array"
       },
+      {
+        "min": 1,
+        "trigger": "blur,change",
+        "message": "至少拥有1个权限",
+        "type": "array"
+      },
+      {
+        "max": 8,
+        "trigger": "blur,change",
+        "message": "最多拥有8个权限",
+        "type": "array"
+      }
+    ],
+    "userPriority.0": [
       {
         "enum": [
           "1",
@@ -182,18 +196,6 @@ const ruleForCreate=
         "trigger": "blur,change",
         "message": "用户权限不正确",
         "type": "enum"
-      },
-      {
-        "min": 1,
-        "trigger": "blur,change",
-        "message": "至少拥有1个权限",
-        "type": "string"
-      },
-      {
-        "max": 8,
-        "trigger": "blur,change",
-        "message": "最多拥有8个权限",
-        "type": "string"
       }
     ]
   },
@@ -513,13 +515,20 @@ const ruleForCreate=
         "trigger": "blur,change",
         "message": "最多设置5标签",
         "type": "array"
+      }
+    ],
+    "tags.0": [
+      {
+        "min": 2,
+        "trigger": "blur,change",
+        "message": "文档标签至少2个字符",
+        "type": "string"
       },
       {
-        "defaultField": {
-          "type": "string",
-          "min": 2,
-          "max": 20
-        }
+        "max": 20,
+        "trigger": "blur,change",
+        "message": "文档标签的长度不能超过20个字符",
+        "type": "string"
       }
     ],
     "categoryId": [
@@ -839,12 +848,14 @@ const ruleForCreate=
         "trigger": "blur,change",
         "message": "群最多有10个群管理员",
         "type": "array"
-      },
+      }
+    ],
+    "adminsId.0": [
       {
-        "defaultField": {
-          "type": "string",
-          "pattern":/^[0-9a-fA-F]{24}$/
-        }
+        "pattern":/^[0-9a-fA-F]{24}$/,
+        "trigger": "blur,change",
+        "message": "群管理员必须是objectId",
+        "type": "string"
       }
     ],
     "membersId": [
@@ -865,12 +876,14 @@ const ruleForCreate=
         "trigger": "blur,change",
         "message": "群最多有200个成员",
         "type": "array"
-      },
+      }
+    ],
+    "membersId.0": [
       {
-        "defaultField": {
-          "type": "string",
-          "pattern":/^[0-9a-fA-F]{24}$/
-        }
+        "pattern":/^[0-9a-fA-F]{24}$/,
+        "trigger": "blur,change",
+        "message": "群成员必须是objectId",
+        "type": "string"
       }
     ]
   },
@@ -1015,12 +1028,14 @@ const ruleForCreate=
         "trigger": "blur,change",
         "message": "好友分组最多包含100个好友",
         "type": "array"
-      },
+      }
+    ],
+    "friendsInGroup.0": [
       {
-        "defaultField": {
-          "type": "string",
-          "pattern":/^[0-9a-fA-F]{24}$/
-        }
+        "pattern":/^[0-9a-fA-F]{24}$/,
+        "trigger": "blur,change",
+        "message": "好友必须是objectId",
+        "type": "string"
       }
     ]
   },
@@ -1345,12 +1360,14 @@ const ruleForCreate=
         "trigger": "blur,change",
         "message": "最多收藏100篇文档",
         "type": "array"
-      },
+      }
+    ],
+    "articlesId.0": [
       {
-        "defaultField": {
-          "type": "string",
-          "pattern":/^[0-9a-fA-F]{24}$/
-        }
+        "pattern":/^[0-9a-fA-F]{24}$/,
+        "trigger": "blur,change",
+        "message": "文档必须是objectId",
+        "type": "string"
       }
     ],
     "topicsId": [
@@ -1365,12 +1382,14 @@ const ruleForCreate=
         "trigger": "blur,change",
         "message": "最多收藏100个系列",
         "type": "array"
-      },
+      }
+    ],
+    "topicsId.0": [
       {
-        "defaultField": {
-          "type": "string",
-          "pattern":/^[0-9a-fA-F]{24}$/
-        }
+        "pattern":/^[0-9a-fA-F]{24}$/,
+        "trigger": "blur,change",
+        "message": "系列必须是objectId",
+        "type": "string"
       }
     ]
   },
@@ -1443,12 +1462,14 @@ const ruleForCreate=
         "trigger": "blur,change",
         "message": "最多设置10篇文档",
         "type": "array"
-      },
+      }
+    ],
+    "articlesId.0": [
       {
-        "defaultField": {
-          "type": "string",
-          "pattern":/^[0-9a-fA-F]{24}$/
-        }
+        "pattern":/^[0-9a-fA-F]{24}$/,
+        "trigger": "blur,change",
+        "message": "文档必须是objectId",
+        "type": "string"
       }
     ]
   }
@@ -1507,8 +1528,22 @@ const ruleForUpdate=
         "required": false,
         "trigger": "blur,change",
         "message": "用户权限不能为空",
-        "type": "string"
+        "type": "array"
       },
+      {
+        "min": 1,
+        "trigger": "blur,change",
+        "message": "至少拥有1个权限",
+        "type": "array"
+      },
+      {
+        "max": 8,
+        "trigger": "blur,change",
+        "message": "最多拥有8个权限",
+        "type": "array"
+      }
+    ],
+    "userPriority.0": [
       {
         "enum": [
           "1",
@@ -1523,18 +1558,6 @@ const ruleForUpdate=
         "trigger": "blur,change",
         "message": "用户权限不正确",
         "type": "enum"
-      },
-      {
-        "min": 1,
-        "trigger": "blur,change",
-        "message": "至少拥有1个权限",
-        "type": "string"
-      },
-      {
-        "max": 8,
-        "trigger": "blur,change",
-        "message": "最多拥有8个权限",
-        "type": "string"
       }
     ]
   },
@@ -1710,13 +1733,20 @@ const ruleForUpdate=
         "trigger": "blur,change",
         "message": "最多设置5标签",
         "type": "array"
+      }
+    ],
+    "tags.0": [
+      {
+        "min": 2,
+        "trigger": "blur,change",
+        "message": "文档标签至少2个字符",
+        "type": "string"
       },
       {
-        "defaultField": {
-          "type": "string",
-          "min": 2,
-          "max": 20
-        }
+        "max": 20,
+        "trigger": "blur,change",
+        "message": "文档标签的长度不能超过20个字符",
+        "type": "string"
       }
     ],
     "categoryId": [
@@ -1844,12 +1874,14 @@ const ruleForUpdate=
         "trigger": "blur,change",
         "message": "群最多有10个群管理员",
         "type": "array"
-      },
+      }
+    ],
+    "adminsId.0": [
       {
-        "defaultField": {
-          "type": "string",
-          "pattern":/^[0-9a-fA-F]{24}$/
-        }
+        "pattern":/^[0-9a-fA-F]{24}$/,
+        "trigger": "blur,change",
+        "message": "群管理员必须是objectId",
+        "type": "string"
       }
     ],
     "membersId": [
@@ -1870,12 +1902,14 @@ const ruleForUpdate=
         "trigger": "blur,change",
         "message": "群最多有200个成员",
         "type": "array"
-      },
+      }
+    ],
+    "membersId.0": [
       {
-        "defaultField": {
-          "type": "string",
-          "pattern":/^[0-9a-fA-F]{24}$/
-        }
+        "pattern":/^[0-9a-fA-F]{24}$/,
+        "trigger": "blur,change",
+        "message": "群成员必须是objectId",
+        "type": "string"
       }
     ]
   },
@@ -1914,12 +1948,14 @@ const ruleForUpdate=
         "trigger": "blur,change",
         "message": "好友分组最多包含100个好友",
         "type": "array"
-      },
+      }
+    ],
+    "friendsInGroup.0": [
       {
-        "defaultField": {
-          "type": "string",
-          "pattern":/^[0-9a-fA-F]{24}$/
-        }
+        "pattern":/^[0-9a-fA-F]{24}$/,
+        "trigger": "blur,change",
+        "message": "好友必须是objectId",
+        "type": "string"
       }
     ]
   },
@@ -2092,12 +2128,14 @@ const ruleForUpdate=
         "trigger": "blur,change",
         "message": "最多收藏100篇文档",
         "type": "array"
-      },
+      }
+    ],
+    "articlesId.0": [
       {
-        "defaultField": {
-          "type": "string",
-          "pattern":/^[0-9a-fA-F]{24}$/
-        }
+        "pattern":/^[0-9a-fA-F]{24}$/,
+        "trigger": "blur,change",
+        "message": "文档必须是objectId",
+        "type": "string"
       }
     ],
     "topicsId": [
@@ -2112,12 +2150,14 @@ const ruleForUpdate=
         "trigger": "blur,change",
         "message": "最多收藏100个系列",
         "type": "array"
-      },
+      }
+    ],
+    "topicsId.0": [
       {
-        "defaultField": {
-          "type": "string",
-          "pattern":/^[0-9a-fA-F]{24}$/
-        }
+        "pattern":/^[0-9a-fA-F]{24}$/,
+        "trigger": "blur,change",
+        "message": "系列必须是objectId",
+        "type": "string"
       }
     ]
   },
@@ -2175,12 +2215,14 @@ const ruleForUpdate=
         "trigger": "blur,change",
         "message": "最多设置10篇文档",
         "type": "array"
-      },
+      }
+    ],
+    "articlesId.0": [
       {
-        "defaultField": {
-          "type": "string",
-          "pattern":/^[0-9a-fA-F]{24}$/
-        }
+        "pattern":/^[0-9a-fA-F]{24}$/,
+        "trigger": "blur,change",
+        "message": "文档必须是objectId",
+        "type": "string"
       }
     ]
   }

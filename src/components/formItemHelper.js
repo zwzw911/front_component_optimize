@@ -16,21 +16,43 @@ function checkWholeStatus({inputCheckInfo}){
   // alert('in')
   //根据inputValue进行遍历
   for(let singleFieldName in inputCheckInfo.inputValue){
-    //1. 所有require字段的validResult都要为空字符
-    if(true===inputCheckInfo.inputAttribute[singleFieldName][InputAttributeFieldName.REQUIRED]){
-      if(''!==inputCheckInfo.inputTempData[singleFieldName][InputTempDataFieldName.VALID_RESULT]){
-        // this.wholeValidResult=false
-        return false
-      }
-    }else{
-      //2. 非require字段不能有字符（只能为空或者null）
-      if(''!==inputCheckInfo.inputTempData[singleFieldName][InputTempDataFieldName.VALID_RESULT] &&
-        null!==inputCheckInfo.inputTempData[singleFieldName][InputTempDataFieldName.VALID_RESULT]
-      ){
-        // this.wholeValidResult=false
-        return false
+    //如果是autoGen，需要对inputArrayAttribute下每个元素检查结果。因为如果添加了item，这item内容必须为require（否则直接delete这个item）
+    if(undefined!==inputCheckInfo.inputArrayAttribute[singleFieldName]){
+      for(let idx in inputCheckInfo.inputArrayAttribute[singleFieldName]){
+        //添加的item，require隐式为true
+        // let requireDefinition=inputCheckInfo.inputArrayAttribute[singleFieldName][idx][InputAttributeFieldName.REQUIRED]
+        let validResult=inputCheckInfo.inputArrayTempData[singleFieldName][idx][InputTempDataFieldName.VALID_RESULT]
+        // if(true===requireDefinition){
+          if(''!==validResult){
+            return false
+          }
+        // }
+        /*else{
+          if(''!==validResult && null!==validResult){
+            return false
+          }
+        }*/
       }
     }
+    //非autoGen（普通字段）
+    else{
+      //1. 所有require字段的validResult都要为空字符
+      if(true===inputCheckInfo.inputAttribute[singleFieldName][InputAttributeFieldName.REQUIRED]){
+        if(''!==inputCheckInfo.inputTempData[singleFieldName][InputTempDataFieldName.VALID_RESULT]){
+          // this.wholeValidResult=false
+          return false
+        }
+      }else{
+        //2. 非require字段不能有字符（只能为空或者null）
+        if(''!==inputCheckInfo.inputTempData[singleFieldName][InputTempDataFieldName.VALID_RESULT] &&
+          null!==inputCheckInfo.inputTempData[singleFieldName][InputTempDataFieldName.VALID_RESULT]
+        ){
+          // this.wholeValidResult=false
+          return false
+        }
+      }
+    }
+
   }
   // this.wholeValidResult=true
   return true

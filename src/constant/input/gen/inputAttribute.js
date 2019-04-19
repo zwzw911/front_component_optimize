@@ -1,5 +1,5 @@
-/*    gene by D:\U\ss_vue_express\server_common\maintain\convert2Client\generateClientInputAttribute.js  
-* 字段的必要属性，例如label，placeHolder等 
+/*    gene by D:\U\ss_vue_express\server_common\maintain\convert2Client\generateClientInputAttribute.js
+* 字段的必要属性，例如label，placeHolder等
 */
 
 "use strict"
@@ -357,7 +357,8 @@ const inputAttribute={
             ],
             "placeHolderBkup": [
                 "文档标签，2至20个字符"
-            ]
+            ],
+          'autoGen':true,
         },
         "categoryId": {
             "label": "分类",

@@ -9,7 +9,7 @@
  * required：是否显示星号，已经全局判断字段是否验证通过
  * **/
 const InputAttributeFieldName=
-{"LABEL":"label","PLACE_HOLDER":"placeHolder","PLACE_HOLDER_BKUP":"placeHolderBkup","ENUM_VALUE":"enumValue","REQUIRED":"required"}//"INPUT_TYPE":"inputType","UNIQUE":"unique","AUTO_GEN":"autoGen"
+{"LABEL":"label","PLACE_HOLDER":"placeHolder","PLACE_HOLDER_BKUP":"placeHolderBkup","ENUM_VALUE":"enumValue","REQUIRED":"required","AUTO_GEN":"autoGen"}//"INPUT_TYPE":"inputType","UNIQUE":"unique","AUTO_GEN":"autoGen"
 const InputTempDataFieldName=
 {"VALID_RESULT":"validResult"}
 const ValidatePart=
