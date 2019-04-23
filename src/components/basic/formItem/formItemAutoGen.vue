@@ -14,9 +14,11 @@ inputAppearanceSetting://对input外观的设置
   iconColor: icon颜色
   editable:boolean。确定是否采用类inputUnEditAble，实现input无边框和readonly的效果
   isPassword:boolean
-  labelPosition: top/left //因为有多个input，但是只能有一个label，所以无法使用iview自带的position，需要和form的设置一致
-  labelWidth：//理由通labelPosition
+  labelWidth:40,  //autoGen特有：当没有任何item时候，还需要显示label，此时使用formItem的labelWidth是无法实现的（没有item就没有formItem，也就没有label，所以label需要独立）
+  labelPosition:,//autoGen特有：top or left。因为label是独立的，所以，需要从父级组件继承来，来设置label的位置
+  inputWidth: ,//autoGen中的item，永远都是按行排列的,所以需要设置width
   addButtonSize, //AutoGen特定，确定按钮大小，默认不设置，size和labelSize一样
+  addButtonMarginTop:,//因为addButton无法获得input的height（iview中input的高度包括本身以及error message的高度），所以提供此参数，以便手工居中
 
 inputGlobalAppearanceSetting:
   ifUpdate: boolean，判断是否需要为inputValue保存一个副本，以便检查是否值发生了变化
@@ -24,7 +26,9 @@ inputGlobalAppearanceSetting:
   inputSize:除了iview预定义的，还可以使用h1～h6定义大小
   labelSize: h1~h6
 
-  //labelWidth:40,  //undefined为0，不显示label. Form中设置
+
+
+
 
 inputActionSetting://对input某些行为做设置
   uniqueCheckOption：如果要进行unique的检测，对应的url和method
@@ -43,18 +47,35 @@ inputActionSetting://对input某些行为做设置
   <!--idx>0 && inputCheckInfo.inputArrangeMode==='h' ? 'inputLabel-hidden':'',-->
   <!--:class="[ inputAppearanceSetting.labelPosition==='top'  ? classVertical: classHorizontal]"-->
   <!--autoGenAnchorToDeleteMarginLeft-->
-  <div >
+  <!--inputGlobalAppearanceSetting.showStarForRequire ? '':'noStarForRequire' ,-->
+  <div :class="classHorizontal">
+    <!--  一下formItem只是用来在没有item的时候，显示label用   -->
+    <!--  是否显示* 和整体field有关，而不是和field下某个元素有关，所以需要显示的设置required，而不是通过元素的rule来设置 -->
+    <FormItem v-if="0===inputCheckInfo.inputValue[fieldName].length"
+              :label=" inputCheckInfo.inputAttribute[fieldName]['label']"
+              :required="inputCheckInfo.rule[fieldName][0]['required']"
+              :class="[inputGlobalAppearanceSetting.showStarForRequire && inputCheckInfo.inputAttribute[fieldName].required ? '':'noStarForRequire',
+                          undefined===inputCheckInfo.labelSize ? '':inputCheckInfo.labelSize,
+                          undefined===inputCheckInfo.inputSize ? '':inputCheckInfo.inputSize,
+                          ]"
+    >
+    </FormItem>
+    <!--:rules="inputCheckInfo.rule[ruleFieldName]"-->
     <FormItem v-for="(ele,idx) in inputCheckInfo.inputValue[fieldName]"
               :prop="fieldName+'.'+idx"
               :key="idx"
               :error="inputCheckInfo.inputArrayTempData[fieldName][idx]['validResult']"
+              :required="false"
               :rules="inputCheckInfo.rule[ruleFieldName]"
-              :class="[inputCheckInfo.showStarForRequire ? '':'noStarForRequire' ,
+
+              :class="[inputGlobalAppearanceSetting.showStarForRequire && inputCheckInfo.inputAttribute[fieldName].required ? '':'noStarForRequire',
                           undefined===inputCheckInfo.labelSize ? '':inputCheckInfo.labelSize,
                           undefined===inputCheckInfo.inputSize ? '':inputCheckInfo.inputSize,
+                          idx>0 ? 'marginLeft0':''
                           ]"
-              class=" marginR4"
-              :label="idx===0  ? inputCheckInfo.inputArrayAttribute[fieldName][0]['label']:''"
+              class="marginR7"
+              :label="idx===0 || undefined===idx  ? inputCheckInfo.inputAttribute[fieldName]['label']:''"
+
     >
 
       <!--:type="inputCheckInfo.inputAttribute[fieldName]['inputType']"-->
@@ -69,6 +90,8 @@ inputActionSetting://对input某些行为做设置
         type="text"
         v-model="inputCheckInfo.inputValue[fieldName][idx]"
         :placeholder="inputCheckInfo.inputArrayAttribute[fieldName][idx]['placeHolder'][0]"
+        :style="[{width:inputAppearanceSetting[fieldName].inputWidth+'px'}]"
+        style="margin-left: 0px;"
       >
 
       <!--:class="[editable ? '':'inputUnEditAble', 'title'===inputAttribute[idx]['inputSize'] ? 'inputTitle':'']" :readonly="!editable"-->
@@ -77,21 +100,26 @@ inputActionSetting://对input某些行为做设置
       </span>
       <!--:style="{visibility: editable ? 'visible':'hidden'}"-->
       <!--v-if="editable===true"-->
-      <span slot="append" style=""  class="cursorPointer"
-            @click="removeItem({idx:idx})">
-        <Icon type="md-remove-circle" size="18"  color="#aaaaaa" title="移除"></Icon>
+      <span slot="append" style=""  class="cursorPointer "
+            @click="_removeItem_async({idx:idx})">
+        <Icon type="md-remove-circle" size="18"  class="color-lighten-red" title="移除"></Icon>
       </span>
       </Input>
     </FormItem>
-    <!--{hidden:!editable},-->
-    <Icon type="md-add-circle"
+    <Tooltip :content="addItemButtonTooltipMsg"
+             placement="top" >
+      <Icon type="md-add-circle"
+            :size="undefined!==inputAppearanceSetting[fieldName].addButtonSize ? inputAppearanceSetting[fieldName].addButtonSize:inputGlobalAppearanceSetting.labelSize"
+            :disabled="addItemButtonDisable"
+            :class="[addItemButtonDisable ? 'color-grey':'color-primary cursor-pointer']"
+            @click="addItem_async();"
+            :style="[{'margin-top': inputAppearanceSetting[fieldName].addButtonMarginTop+'px'}]"
+      >
+      </Icon>
+    </Tooltip>
 
-          :disabled="addItemButtonDisable"
-          :class="[undefined===inputAppearanceSetting.addButtonSize ? '':inputGlobalAppearanceSetting.labelSize,addItemButtonDisable ? 'color-grey':'color-primary cursor-pointer']"
-          @click="addItem();"
-    >
-      添加
-    </Icon>
+    <!--</div>-->
+
   </div>
 
 </template>
@@ -130,23 +158,37 @@ import xss from 'xss'
 
     },
     created() {
+
       //无论update还是create，都要初始化
       //0. 首先获得最小最大item数量
       this._getNumRange()
-      //1. 检测inputValue是否为数组（防止字符）, 如果不是，初始化为空数组
+
+      this._setAddItemButtonEnable()
+      // this.addItemButtonDisable=false//默认是可以addItem
+      // this.addItemButtonTooltipMsg=`添加新${this.inputCheckInfo.inputArrayAttribute[this.fieldName][0]['label']}`
+      //1. 检测inputValue是否为数组（防止字符）, 如果不是，初始化为只有一个空元素的数组（以便formItem能显示label）
       if(false===misc.isArray(this.inputCheckInfo.inputValue[this.fieldName])){
-        this.inputCheckInfo.inputValue[this.fieldName]=['test']
+        this.inputCheckInfo.inputValue[this.fieldName]=[]
+        // this.inputCheckInfo.inputArrayTempData[this.fieldName].push({[InputTempDataFieldName.VALID_RESULT]:null})
+        // // this.inputCheckInfo.inputArrayTempData[this.fieldName].push({[InputTempDataFieldName.VALID_RESULT]:null})
+        // this.inputCheckInfo.inputArrayAttribute[this.fieldName].push(misc.objectDeepCopy(this.inputCheckInfo.inputAttribute[this.fieldName]))
+        // return true
       }
       //2. 根据min/maxItemNum，截断inputValue
       let inputValueLength=this.inputCheckInfo.inputValue[this.fieldName]
-      //2.1 inputValue的长度超过预定义，需要截断多余的元素
+      //2.1 inputValue的长度超过预定义，需要截断多余的元素，并disable addButton
       if(inputValueLength > this._maxItemNumber){
         console.log(`ERR:inputValue length exceed ${this._maxItemNumber}`)
+        //添加 按钮 disable
+        this._setAddItemButtonDisable_reachMaxItemNum()
+        // this.addItemButtonDisable=true
         while (inputValueLength> this._maxItemNumber){
           //删除最后一个元素splice的第一个参数是idx
           this.inputCheckInfo.inputValue[this.fieldName].splice(inputValueLength-1,1)
           inputValueLength--
         }
+
+        // this.addItemButtonDisable=true
       }
       //4. 如果是update操作，除了备份原始数据，还要根据原始数据(inputValue)的个数，生成对应的inputArrayAttribute/inputArrayTempData
       if(true===this.inputGlobalAppearanceSetting.ifUpdate) {
@@ -164,18 +206,38 @@ import xss from 'xss'
     async mounted(){
       //如果是update，需要验证从server获得的数据是否合格，并且把结果存储起来，以便父组件直接判断
       if(true===this.inputGlobalAppearanceSetting.ifUpdate){
-        await formItemHelper.validateSingleFieldValueAndStoreValidResult_async({that:this})
+        this.$nextTick(async function () {
+          await formItemHelper.validateSingleFieldValueAndStoreValidResult_async({that:this})
+        })
       }
     },
     methods: {
+      _setAddItemButtonEnable(){
+        this.addItemButtonDisable=false
+        this.addItemButtonTooltipMsg=`添加新${this.inputCheckInfo.inputAttribute[this.fieldName]['label']}`
+      },
+      _setAddItemButtonDisable_reachMaxItemNum(){
+        this.addItemButtonDisable=true
+        this.addItemButtonTooltipMsg=`达到上限，无法继续添加`
+      },
+      _setAddItemButtonDisable_previousItemInputWrong(){
+        this.addItemButtonDisable=true
+        this.addItemButtonTooltipMsg=`输入不正确，无法继续添加`
+      },
       //计算addButtonDisable是否enable
       _calcAndSetAddItemButtonDisableAStatus(){
         //判断是否已经达到最大数量，并设置按钮状态
         let currentValueLength=this.inputCheckInfo.inputValue[this.fieldName].length
+        // console.log('currentValueLength',currentValueLength)
+        // console.log('this.inputCheckInfo.numRange[this.fieldName][\'max\']',this.inputCheckInfo.numRange[this.fieldName]['max'])
         if(currentValueLength>=this.inputCheckInfo.numRange[this.fieldName]['max']){
-          return this.addItemButtonDisable=true
+          this._setAddItemButtonDisable_reachMaxItemNum()
+          return false
+          // return this.addItemButtonDisable=true
         }else{
-          return this.addItemButtonDisable=false
+          this._setAddItemButtonEnable()
+          return true
+          // return this.addItemButtonDisable=false
         }
       },
 
@@ -186,12 +248,11 @@ import xss from 'xss'
             return {'required':fieldSingleRuleDefinition['required'],'message':fieldSingleRuleDefinition['message']}
           }
         }
-
         //undefined 被视为true
         return {'required':false,'message':`${this.inputCheckInfo.inputAttribute[this.fieldName][InputAttributeFieldName.LABEL]}不能为空`}
       },
       //判断autoGen的所有item是否已经都valid了
-      checkIfAllAutoGenItemValidatedResultPass(){
+      async checkIfAllAutoGenItemValidatedResultPass_async(){
         //判断所有元素是否验证通过（如果validResult为null，则要结合是否为require来判断），无法继续添加
         // inf('this.formItemInfo.inputValue[keyName]',this.formItemInfo.inputValue[keyName])
         //inputValue初始化成null
@@ -199,30 +260,18 @@ import xss from 'xss'
         if(null!==this.inputCheckInfo.inputValue[keyName]){
           // inf('this.formItemInfo.inputValue[keyName]',this.formItemInfo.inputValue[keyName])
           let length=this.inputCheckInfo.inputValue[keyName].length
-          // if(length>0){
-            // inf('length',length)
-            // inf('last validResult',this.formItemInfo.inputArrayTempData[keyName][length-1]['validResult'])
           while (length>0){
-            /*              if(null===this.formItemInfo.inputArrayTempData[keyName][length-1]['validResult']){
-                            await this.validateSingleAutoGenItemAndStoreResult({keyName:keyName,idx:length})
-                          }*/
-// inf('this.formItemInfo.inputArrayTempData[keyName][length-1][\'validResult\']',this.formItemInfo.inputArrayTempData[keyName][length-1]['validResult'])
             //如果单个item的validResult为null，说明此item尚未验证，则直接返回false（item默认require为true）
             if(null===this.inputCheckInfo.inputArrayTempData[keyName][length-1][InputTempDataFieldName.VALID_RESULT] ){
-              //遍历key的所有rule(因为不知道require处于哪个rule)
-/*              for(let singleRule of this.formItemInfo.rule[keyName]){
-                if(true===singleRule['required']){*/
-                  return false
- /*               }
-              }*/
-
+              //根据inputArrayTempData，是否已经验证过，没有的话，进行验证
+                let singleValidateResult=await this._validateItemValueAndStoreResult_async({idx:length-1})
+              // console.log('checkIfAllAutoGenItemValidatedResultPass_async: null check result',singleValidateResult)
+                if(false===singleValidateResult){
+                  return Promise.resolve(false)
+                }
             }else {
               if(""!==this.inputCheckInfo.inputArrayTempData[keyName][length-1]['validResult'] ){
-                // this.formItemInfo.addItemButtonDisable[keyName]=true
-                // showErrorInCenterMessage({that:that,msg:'有尚未填入内容的标签'})
-                // this.formItemInfo.inputArrayTempData[keyName][length-1][InputTempDataFieldName.VALID_RESULT] = `文档标签不能为空啊`
-                // this.formItemInfo.addItemButtonDisable[keyName]=true
-                return false
+                return Promise.resolve(false)
               }
             }
             length--
@@ -230,75 +279,68 @@ import xss from 'xss'
           // }
         }
         // this.formItemInfo.addItemButtonDisable[keyName]=false
-        return true
+        return Promise.resolve(true)
       },
-      addItem(){
+      async addItem_async(){
         // inf('keyname',keyName)
         let keyName=this.fieldName
         let that=this
 
+
         //判断是否所有已经存在的item都验证通过，没有通过，则按钮状态为disable
-        let existItemValidateResult=this.checkIfAllAutoGenItemValidatedResultPass()
-        // inf('existItemValidateResult',existItemValidateResult)
+        let existItemValidateResult=await this.checkIfAllAutoGenItemValidatedResultPass_async()
+        console.log('existItemValidateResult',existItemValidateResult)
         if(false===existItemValidateResult){
-          return this.addItemButtonDisable=true
+          this._setAddItemButtonDisable_previousItemInputWrong()
+          return this.$emit('addItem')
+          // return this.addItemButtonDisable=true
+        }
+        //计算并设置 添加 按钮的状态
+        if(false===this._calcAndSetAddItemButtonDisableAStatus()){
+          return this.$emit('addItem')
         }
         //去除全局错误
         this.inputCheckInfo.inputTempData[keyName][InputTempDataFieldName.VALID_RESULT]=''
-       /* //判断是否已经达到最大数量，
-        let currentValueLength=this.inputCheckInfo.inputValue[keyName].length
-        if(currentValueLength>=this.inputCheckInfo.numRange[keyName]['max']){
-          this.addItemButtonDisable=true
-          return false
-        }*/
 
         // 如果没有，创建一个新的value/attribute/tempData
         this.inputCheckInfo.inputValue[keyName].push('')
         this.inputCheckInfo.inputArrayAttribute[keyName].push(misc.objectDeepCopy(this.inputCheckInfo.inputAttribute[keyName]))
-        // this.addItemButtonDisable=true
-
-        // this.$nextTick(function () {
-        //设置tempData，需要设置validResult，以便运行checkIfAllItemPass(),且在界面上是否显示错误，提示用户输入（然而直接设置validResult和调用validField方法（报错）都无法触发界面错误）
-        let newItemTempData=misc.objectDeepCopy(that.inputCheckInfo.inputTempData[keyName])
-        // inf('before newItemTempData',newItemTempData)
-        //require必定为true，但是为了获得message，所以还是要运行一下_getEleRequireDefinition
-        let requiredDefine = that._getEleRequireDefinition()
-        // if(true===requiredDefine['required']){
-        newItemTempData[InputTempDataFieldName.VALID_RESULT]=requiredDefine['message']
-        // }
-        // inf('after newItemTempData',newItemTempData)
-        that.inputCheckInfo.inputArrayTempData[keyName].push(newItemTempData)
+        this.inputCheckInfo.inputArrayTempData[keyName].push({[InputTempDataFieldName.VALID_RESULT]:null})
         // })
+        // console.log('_validateItemValueAndStoreResult_async')
+        // console.log('_validateItemValueAndStoreResult_async idx',this.inputCheckInfo.inputValue[keyName].length-1)
+        this.$nextTick(async function () {
+          //立即对新添加的item进行验证，如果不通过，给出明确的错误提示，让整体提交的按钮disable（不验证，无提示，直接disable整体提交按钮，用户会困惑）
+          await that._validateItemValueAndStoreResult_async({idx:this.inputCheckInfo.inputValue[keyName].length-1})
+        })
 
 
+        // console.log('_validateItemValueAndStoreResult_async done')
         //计算并设置 添加 按钮的状态
         this._calcAndSetAddItemButtonDisableAStatus()
-
-        // this.checkIfAllItemValidatedResultPass()
-        //添加完成后，还要进行验证
-        //不知为啥，不能直接使用validSingleInputValueAndStoreResult来验证已经存在的autoGen的元素（包prop不正确），所以手动修改
-
-        // inf('this.checkIfAllAutoGenItemValidatedResultPass({keyName:keyName})',this.checkIfAllAutoGenItemValidatedResultPass({keyName:keyName}))
-        // inf('this.formItemInfo.inputValue[keyName]',this.formItemInfo.inputValue[keyName])
-
-
-
+        this.$emit('addItem')
       },
-      removeItem({idx}){
-        //删除对应的值
-        this.inputCheckInfo.inputValue[this.fieldName].splice(idx,1)
-        this.inputCheckInfo.inputArrayAttribute[this.fieldName].splice(idx,1)
-        this.inputCheckInfo.inputArrayTempData[this.fieldName].splice(idx,1)
+      async _removeItem_async({idx}){
+/*        //第一个元素不能被删除，只能清existItemValidateResult 空为空字符（这样才能显示formItem的label）
+        if(0===idx){
+          this.inputCheckInfo.inputValue[this.fieldName][idx]=''
+          this.inputCheckInfo.inputArrayTempData[this.fieldName][idx][InputTempDataFieldName.VALID_RESULT]=null
+          this.inputCheckInfo.inputArrayAttribute[this.fieldName][idx][InputAttributeFieldName.PLACE_HOLDER]=this.inputCheckInfo.inputArrayAttribute[this.fieldName][idx][InputAttributeFieldName.PLACE_HOLDER_BKUP]
+          //再次
+          // return await this._validateItemValueAndStoreResult_async({idx:0})
+        }else{*/
+          //删除对应的值
+          this.inputCheckInfo.inputValue[this.fieldName].splice(idx,1)
+          this.inputCheckInfo.inputArrayAttribute[this.fieldName].splice(idx,1)
+          this.inputCheckInfo.inputArrayTempData[this.fieldName].splice(idx,1)
+        // }
+
 
         //计算并设置 添加 按钮的状态
         this._calcAndSetAddItemButtonDisableAStatus()
-        // inf('this.checkIfAllAutoGenItemValidatedResultPass({keyName:keyName})',this.checkIfAllAutoGenItemValidatedResultPass({keyName:keyName}))
-        // this.setAutoGenButtonStatusByCheckValidatedResult({keyName:keyName})
-        //如果删除autoGen所有元素，需要进行全局（整个字段）检查
-/*        if(this.formItemInfo.inputValue[keyName].length===0){
-          this.validSingleInputValueAndStoreResult({fieldName:keyName})
-        }*/
-        // this.validateAllItemResult()
+
+        //触发事件，以便父组件检测，删除item后，是否符合rule
+        this.$emit('removeItem')
       },
       //通过传入的numRange设置最小/最大数量。如果numRange没有最小，则设置最小为0；如果numRange没有最大，则设置最大为5
       _getNumRange(){
@@ -321,115 +363,73 @@ import xss from 'xss'
           }else{
             this._maxItemNumber=this.inputCheckInfo.numRange[this.fieldName]['max']
           }
-          // undefined===this.inputCheckInfo.numRange['max'] ?  this._maxItemNumber=5:this._maxItemNumber=this.inputCheckInfo.numRange['max']
         }
 
-
-
-        /*if(undefined===this.inputCheckInfo.numRange || undefined===this.inputCheckInfo.numRange['min']){
-          this._minItemNumber=0
-        }
-        if(undefined===this.inputCheckInfo.numRange || undefined===this.inputCheckInfo.numRange['max']){
-          this._maxItemNumber=5
-        }
-        if(undefined!==this.inputCheckInfo.numRange['min']){
-          this._minItemNumber=this.inputCheckInfo.numRange['min']
-        }
-        if(undefined!==this.inputCheckInfo.numRange['max']){
-          this._maxItemNumber=this.inputCheckInfo.numRange['max']
-        }*/
       },
-      //当input的值为null或者''时，设置placeholder
-      _setPlaceHolderWhenInputValueNull({idx}){
-        if(null === this.inputCheckInfo.inputValue[this.fieldName][idx]
-          || '' === this.inputCheckInfo.inputValue[this.fieldName][idx]){
-          this.inputCheckInfo.inputArrayAttribute[this.fieldName][idx][InputAttributeFieldName.PLACE_HOLDER]=this.inputCheckInfo.inputArrayAttribute[this.fieldName][idx][InputAttributeFieldName.PLACE_HOLDER_BKUP]
-        }
-      },
+
       //和非autoGen的formItem不一样，因为要传入idx这个参数，所以无法做成函数放入formItemHelper中
-      async _validateSingleFieldValueAndStoreValidResult_async({idx}){
-        this.$parent.validateField(`${this.fieldName}.${idx}`, (validResult) => {
-          // inf('validSingleInputValueAndStoreResult fieldName validate result',validResult)
-          // inf('validSingleInputValueAndStoreResult fieldName validate err',err)
-          this.inputCheckInfo.inputArrayTempData[this.fieldName][idx][InputTempDataFieldName.VALID_RESULT] = validResult
-          return Promise.resolve(true)
-        })
-      },
+      //validate单个item的值，将结果存入inputArrayTempData，并返回验证结果是否通过
+      async _validateItemValueAndStoreResult_async({idx}){
+        let that=this
+        return new Promise(function(resolve, reject){
+          that.$parent.validateField(`${that.fieldName}.${idx}`, (validResult) => {
+            that.inputCheckInfo.inputArrayTempData[that.fieldName][idx][InputTempDataFieldName.VALID_RESULT] = validResult
+            console.log('_validateItemValueAndStoreResult_async valid result',validResult)
+            if(''===validResult){
+              // console.log('validate reulst “”')
+              return resolve(true)
+            }else{
+              // console.log('validate reulst err')
+              return resolve(false)
+            }
 
+          })
+        })
+
+      },
       /************************/
       /****  判断返回结果  ***/
       /************************/
 
       onFocus({idx}){
-        //1. 检查验证结果，验证失败（validResult不为空和null），则删除inputValue.
-        //不要自动删除，也许用户只想在原来的基础上进行修改
-/*        //实现了自动清空错误输入的功能
-        if(null !== this.inputCheckInfo.inputTempData[this.fieldName][InputTempDataFieldName.VALID_RESULT]
-          && '' !== this.inputCheckInfo.inputTempData[this.fieldName][InputTempDataFieldName.VALID_RESULT]){
-          this.inputCheckInfo.inputValue[this.fieldName]=''
-        }*/
+        //1. onFocus，清空placeHolder(理论上应该是inputValue为空才设置placeHolder，但是判断也需要代码，干脆直接清空placeHolder)
+        this.inputCheckInfo.inputArrayAttribute[this.fieldName][idx][InputAttributeFieldName.PLACE_HOLDER]=''
 
-        //2. 检查inputValue，如果是空字符，或者null，说明需要设置ph
-        this._setPlaceHolderWhenInputValueNull({idx:idx})
-/*        if(null === this.inputCheckInfo.inputValue[this.fieldName]
-          || '' === this.inputCheckInfo.inputValue[this.fieldName]){
-          this.inputCheckInfo.inputAttribute[this.fieldName][InputAttributeFieldName.PLACE_HOLDER]=this.inputCheckInfo.inputAttribute[this.fieldName][InputAttributeFieldName.PLACE_HOLDER_BKUP]
-        }*/
         this.$emit('onFocus')
       },
       async onBlur_async({idx}){
+        formItemHelper.setPlaceHolderWhenInputValueNull_AutoGen({inputCheckInfo:this.inputCheckInfo,fieldName:this.fieldName,idx:idx})
+        // this._setPlaceHolderWhenInputValueNull({idx:idx})
+        let result=await this._validateItemValueAndStoreResult_async({idx:idx})
+        if(true===result){
+          this._setAddItemButtonEnable()
+        }else{
+          this._setAddItemButtonDisable_previousItemInputWrong()
+          return this.$emit('onBlur')
+        }
 
-        await this._validateSingleFieldValueAndStoreValidResult_async({idx:idx})
         if(undefined!==this.inputActionSetting[this.fieldName]['uniqueCheckOption']){
           await formItemHelper.validateUnique_async({inputCheckInfo:this.inputCheckInfo,inputActionSetting:this.inputActionSetting,fieldName:this.fieldName})
         }
         this.$emit('onBlur')
-        /*this.$parent.validateField(this.fieldName, (validResult) => {
-          this.inputCheckInfo.inputTempData[this.fieldName][InputTempDataFieldName.VALID_RESULT] = validResult
-          //输入验证通过，到server进行unique验证（如果有）
-          if(undefined!==this.inputActionSetting[this.fieldName]['uniqueCheckOption']){
-            formItemHelper.validateUnique_async({inputCheckInfo:this.inputCheckInfo,inputActionSetting:this.inputActionSetting,fieldName:this.fieldName})
-          }
-          this.$emit('onBlur')
-        })*/
-
       },
       async onChange_async({idx}){
         //1. 检查inputValue，如果是空字符，或者null，说明需要设置ph
-        this._setPlaceHolderWhenInputValueNull({inputCheckInfo:this.inputCheckInfo,fieldName:this.fieldName,idx:idx})
-/*        if(null === this.inputCheckInfo.inputValue[this.fieldName]
-          || '' === this.inputCheckInfo.inputValue[this.fieldName]){
-          this.inputCheckInfo.inputAttribute[this.fieldName][InputAttributeFieldName.PLACE_HOLDER]=this.inputCheckInfo.inputAttribute[this.fieldName][InputAttributeFieldName.PLACE_HOLDER_BKUP]
-        }*/
+        formItemHelper.setPlaceHolderWhenInputValueNull_AutoGen({inputCheckInfo:this.inputCheckInfo,fieldName:this.fieldName,idx:idx})
         //2. 验证输入（即使空）
-        await this._validateSingleFieldValueAndStoreValidResult_async({idx:idx})
+        let result=await this._validateItemValueAndStoreResult_async({idx:idx})
+        true===result ? this._setAddItemButtonEnable():this._setAddItemButtonDisable_previousItemInputWrong()
         this.$emit('onChange')
-/*        this.$parent.validateField(this.fieldName, (validResult) => {
-          this.inputCheckInfo.inputTempData[this.fieldName][InputTempDataFieldName.VALID_RESULT] = validResult
-          //输入验证通过，到server进行unique验证（如果有）
-          //为了性能考虑，unique检查，只有在onBlur才进行检测
-/!*          if(undefined!==this.inputActionSetting['uniqueCheckOption']){
-            this.validateUnique_async()
-          }*!/
-          this.$emit('onChange')
-        })*/
-
       },
       /*********************/
       /****  validate  ****/
       /*********************/
       //字段的unique检测
       //不知道为啥，props,data和computed中的数据，不能放在promise的then中使用，如果要做设置，只能通过参数传递
-
-
-
       xssCheck(){
         let fieldName=this.fieldName
         let inputValue=this.inputCheckInfo.inputValue[this.fieldName]
-
-
       },
-
 
     },
     computed: {},
@@ -440,31 +440,16 @@ import xss from 'xss'
         inputValueBkup:null,//如果ifUpdate为true，这需要用到这个变量，进行比较，判断是否输入发生了变化
 
         // newButtonDisable:false,//达到上限，为false（是否显示，通过editable控制）
-
-
         classVertical:'flex-flow-column-nowrap justify-content-flex-start align-items-flex-start align-content-flex-start',
         classHorizontal:'flex-flow-row-nowrap justify-content-flex-start align-items-flex-start align-content-flex-start',
 
         ruleFieldName:this.fieldName+'.0',//记录元素rule的fieldName
 
         addItemButtonDisable:true, //添加item的按钮是否disable，默认disable
-
+        addItemButtonTooltipMsg:'',//addItemButton的提示信息
         _maxItemNumber:0,
         _minItemNumber:0,
-        //采用style，优先级覆盖iview
-        // buttonDisableStyle:this.$store.state.style.button.primary.disable,
 
-        // classVertical:'flex-flow-column-nowrap justify-content-flex-start align-items-flex-start align-content-flex-start',
-        // classHorizontal:'flex-flow-row-nowrap justify-content-flex-start align-items-flex-start align-content-flex-start',
-
-
-
-        // ref:this.inputCheckInfo.captchaInfo.captchaImgId,
-
-        //存储原始数据
-        // inputOriginalValue:{},
-        //如果是textarea，可能需要存储对应的editor实例
-        // inputValueEditor:{},
       }
     },
   }

@@ -170,7 +170,7 @@
   margin-left:-45px;
 }
 
-
-.autoGenAnchorToDeleteMarginLeft>div{
+/* 如果是autoGen，且labelPosition为left，那么第二以及之后的item，label除了不能显示，input上级的div（iview自动生成）margin-left也必须为0 */
+.marginLeft0>div{
   margin-left: 0 !important;
 }

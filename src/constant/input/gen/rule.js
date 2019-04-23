@@ -1,5 +1,5 @@
-/*    gene by D:\U\ss_vue_express\server_common\maintain\convert2Client\generateClientRule.js  
-* 产生client的rule 
+/*    gene by D:\U\ss_vue_express\server_common\maintain\convert2Client\generateClientRule.js
+* 产生client的rule
 */
 
 "use strict"
@@ -182,6 +182,11 @@ const ruleForCreate=
       }
     ],
     "userPriority.0": [
+      {
+        "required": true,
+        "trigger": "blur,change",
+        "message": "用户权限不能为空"
+      },
       {
         "enum": [
           "1",
@@ -519,6 +524,11 @@ const ruleForCreate=
     ],
     "tags.0": [
       {
+        "required": true,
+        "trigger": "blur,change",
+        "message": "文档标签不能为空"
+      },
+      {
         "min": 2,
         "trigger": "blur,change",
         "message": "文档标签至少2个字符",
@@ -852,6 +862,11 @@ const ruleForCreate=
     ],
     "adminsId.0": [
       {
+        "required": true,
+        "trigger": "blur,change",
+        "message": "群管理员不能为空"
+      },
+      {
         "pattern":/^[0-9a-fA-F]{24}$/,
         "trigger": "blur,change",
         "message": "群管理员必须是objectId",
@@ -879,6 +894,11 @@ const ruleForCreate=
       }
     ],
     "membersId.0": [
+      {
+        "required": true,
+        "trigger": "blur,change",
+        "message": "群成员不能为空"
+      },
       {
         "pattern":/^[0-9a-fA-F]{24}$/,
         "trigger": "blur,change",
@@ -1031,6 +1051,11 @@ const ruleForCreate=
       }
     ],
     "friendsInGroup.0": [
+      {
+        "required": true,
+        "trigger": "blur,change",
+        "message": "好友分组不能为空"
+      },
       {
         "pattern":/^[0-9a-fA-F]{24}$/,
         "trigger": "blur,change",
@@ -1364,6 +1389,11 @@ const ruleForCreate=
     ],
     "articlesId.0": [
       {
+        "required": true,
+        "trigger": "blur,change",
+        "message": "收藏文档不能为空"
+      },
+      {
         "pattern":/^[0-9a-fA-F]{24}$/,
         "trigger": "blur,change",
         "message": "文档必须是objectId",
@@ -1385,6 +1415,11 @@ const ruleForCreate=
       }
     ],
     "topicsId.0": [
+      {
+        "required": true,
+        "trigger": "blur,change",
+        "message": "系列不能为空"
+      },
       {
         "pattern":/^[0-9a-fA-F]{24}$/,
         "trigger": "blur,change",
@@ -1466,6 +1501,11 @@ const ruleForCreate=
     ],
     "articlesId.0": [
       {
+        "required": true,
+        "trigger": "blur,change",
+        "message": "系列文档不能为空"
+      },
+      {
         "pattern":/^[0-9a-fA-F]{24}$/,
         "trigger": "blur,change",
         "message": "文档必须是objectId",
@@ -1544,6 +1584,11 @@ const ruleForUpdate=
       }
     ],
     "userPriority.0": [
+      {
+        "required": false,
+        "trigger": "blur,change",
+        "message": "用户权限不能为空"
+      },
       {
         "enum": [
           "1",
@@ -1737,6 +1782,11 @@ const ruleForUpdate=
     ],
     "tags.0": [
       {
+        "required": true,
+        "trigger": "blur,change",
+        "message": "文档标签不能为空"
+      },
+      {
         "min": 2,
         "trigger": "blur,change",
         "message": "文档标签至少2个字符",
@@ -1878,6 +1928,11 @@ const ruleForUpdate=
     ],
     "adminsId.0": [
       {
+        "required": false,
+        "trigger": "blur,change",
+        "message": "群管理员不能为空"
+      },
+      {
         "pattern":/^[0-9a-fA-F]{24}$/,
         "trigger": "blur,change",
         "message": "群管理员必须是objectId",
@@ -1905,6 +1960,11 @@ const ruleForUpdate=
       }
     ],
     "membersId.0": [
+      {
+        "required": false,
+        "trigger": "blur,change",
+        "message": "群成员不能为空"
+      },
       {
         "pattern":/^[0-9a-fA-F]{24}$/,
         "trigger": "blur,change",
@@ -1951,6 +2011,11 @@ const ruleForUpdate=
       }
     ],
     "friendsInGroup.0": [
+      {
+        "required": false,
+        "trigger": "blur,change",
+        "message": "好友分组不能为空"
+      },
       {
         "pattern":/^[0-9a-fA-F]{24}$/,
         "trigger": "blur,change",
@@ -2132,6 +2197,11 @@ const ruleForUpdate=
     ],
     "articlesId.0": [
       {
+        "required": false,
+        "trigger": "blur,change",
+        "message": "收藏文档不能为空"
+      },
+      {
         "pattern":/^[0-9a-fA-F]{24}$/,
         "trigger": "blur,change",
         "message": "文档必须是objectId",
@@ -2153,6 +2223,11 @@ const ruleForUpdate=
       }
     ],
     "topicsId.0": [
+      {
+        "required": false,
+        "trigger": "blur,change",
+        "message": "系列不能为空"
+      },
       {
         "pattern":/^[0-9a-fA-F]{24}$/,
         "trigger": "blur,change",
@@ -2218,6 +2293,11 @@ const ruleForUpdate=
       }
     ],
     "articlesId.0": [
+      {
+        "required": false,
+        "trigger": "blur,change",
+        "message": "系列文档不能为空"
+      },
       {
         "pattern":/^[0-9a-fA-F]{24}$/,
         "trigger": "blur,change",

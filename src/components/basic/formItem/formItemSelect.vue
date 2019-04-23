@@ -11,7 +11,7 @@ inputAppearanceSetting://对input外观的设置
   iconColor: icon颜色
   editable:boolean。确定是否采用类inputUnEditAble，实现input无边框和readonly的效果
   //isPassword:boolean
- selectWidth: 不知何故，iview的select组件，显示的内容必定居中，而其他input都是左对齐。为了模拟左对齐，select的width设置为合适长度，正好容纳option的内容。同时为了将select本身左对齐，formItem也要设置同样的width
+ inputWidth: 不知何故，iview的select组件，显示的内容必定居中，而其他input都是左对齐。为了模拟左对齐，select的width设置为合适长度，正好容纳option的内容。同时为了将select本身左对齐，formItem也要设置同样的width
 
 inputGlobalAppearanceSetting:
   ifUpdate: boolean，判断是否需要为inputValue保存一个副本，以便检查是否值发生了变化
@@ -41,13 +41,13 @@ inputActionSetting://对input某些行为做设置
              :error="inputCheckInfo.inputTempData[fieldName]['validResult']"
              :label="inputCheckInfo.inputAttribute[fieldName]['label']"
               class=""
-             :style="[{width:inputAppearanceSetting[fieldName].selectWidth+'px'}]"
+             :style="[{width:inputAppearanceSetting[fieldName].inputWidth+'px'}]"
   >
     <!--select不支持focus和blur-->
     <Select v-model="inputCheckInfo.inputValue[fieldName]" clearable
             :placeholder="inputCheckInfo.inputAttribute[fieldName]['placeHolder'][0]"
             @on-change="onChange_async"
-            :style="[{width:inputAppearanceSetting[fieldName].selectWidth+'px'}]"
+            :style="[{width:inputAppearanceSetting[fieldName].inputWidth+'px'}]"
     >
       <Option v-for="(enumValue,enumKey) in inputCheckInfo.inputAttribute[fieldName]['enumValue']" :value="enumKey" :key="enumKey">{{enumValue }}</Option>
     </Select>

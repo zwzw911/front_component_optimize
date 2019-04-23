@@ -16,13 +16,19 @@ function checkWholeStatus({inputCheckInfo}){
   // alert('in')
   //根据inputValue进行遍历
   for(let singleFieldName in inputCheckInfo.inputValue){
-    //如果是autoGen，需要对inputArrayAttribute下每个元素检查结果。因为如果添加了item，这item内容必须为require（否则直接delete这个item）
+    // console.log('singleFieldName',singleFieldName)
+    //如果是autoGen，需要额外对inputArrayAttribute下每个元素检查结果。因为如果添加了item，这item内容必须为require（否则直接delete这个item）
     if(undefined!==inputCheckInfo.inputArrayAttribute[singleFieldName]){
+      // console.log(`${singleFieldName} is autogen`)
       for(let idx in inputCheckInfo.inputArrayAttribute[singleFieldName]){
+
         //添加的item，require隐式为true
         // let requireDefinition=inputCheckInfo.inputArrayAttribute[singleFieldName][idx][InputAttributeFieldName.REQUIRED]
+        // console.log('inputCheckInfo.inputArrayTempData[singleFieldName][idx]',inputCheckInfo.inputArrayTempData[singleFieldName][idx])
         let validResult=inputCheckInfo.inputArrayTempData[singleFieldName][idx][InputTempDataFieldName.VALID_RESULT]
         // if(true===requireDefinition){
+        // console.log('idx',idx)
+        // console.log('validResult',validResult)
           if(''!==validResult){
             return false
           }
@@ -34,8 +40,8 @@ function checkWholeStatus({inputCheckInfo}){
         }*/
       }
     }
-    //非autoGen（普通字段）
-    else{
+    //非autoGen（普通字段）以及autoGen整体
+    // else{
       //1. 所有require字段的validResult都要为空字符
       if(true===inputCheckInfo.inputAttribute[singleFieldName][InputAttributeFieldName.REQUIRED]){
         if(''!==inputCheckInfo.inputTempData[singleFieldName][InputTempDataFieldName.VALID_RESULT]){
@@ -51,7 +57,7 @@ function checkWholeStatus({inputCheckInfo}){
           return false
         }
       }
-    }
+    // }
 
   }
   // this.wholeValidResult=true
@@ -138,7 +144,20 @@ async function validateUnique_async({inputCheckInfo,inputActionSetting,fieldName
   }
 }
 
-
+//当autoGen的item的值为null或者''时，设置placeholder
+function setPlaceHolderWhenInputValueNull_AutoGen({inputCheckInfo,fieldName,idx}){
+  if(null === inputCheckInfo.inputValue[fieldName][idx]
+    || '' === inputCheckInfo.inputValue[fieldName][idx]){
+    inputCheckInfo.inputArrayAttribute[fieldName][idx][InputAttributeFieldName.PLACE_HOLDER]=inputCheckInfo.inputArrayAttribute[fieldName][idx][InputAttributeFieldName.PLACE_HOLDER_BKUP]
+  }
+}
+//非autoGen的input，如果未设置值，添加placeHolder
+function setPlaceHolderWhenInputValueNull({inputCheckInfo,fieldName}){
+  if(null === inputCheckInfo.inputValue[fieldName]
+    || '' === inputCheckInfo.inputValue[fieldName]){
+    inputCheckInfo.inputAttribute[fieldName][InputAttributeFieldName.PLACE_HOLDER]=inputCheckInfo.inputAttribute[fieldName][InputAttributeFieldName.PLACE_HOLDER_BKUP]
+  }
+}
 export {
   checkWholeStatus,
   ifSameObject,
@@ -146,4 +165,7 @@ export {
 
   validateSingleFieldValueAndStoreValidResult_async,//验证并设置单个field的值是否valid
   validateUnique_async,
+
+  setPlaceHolderWhenInputValueNull_AutoGen,
+  setPlaceHolderWhenInputValueNull,
 }

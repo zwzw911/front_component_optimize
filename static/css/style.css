@@ -52,6 +52,12 @@
 }
 .noStarForRequire > label:before {
   content: '' !important;
+  display: inline-block;
+  margin-right: 4px;
+  line-height: 1;
+  font-family: SimSun;
+  font-size: 12px;
+  color: #ed4014;
 }
 .inputLabelAlignLeft > label {
   text-align: left !important;

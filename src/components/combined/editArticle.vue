@@ -8,7 +8,7 @@
     <Button type="primary" :disabled="!wholeValidResult">test</Button>
     <div class="flex-flow-column-nowrap justify-content-flex-start flex-grow-1">
       <Form
-            label-position="left"
+            :label-position="labelPosition"
             :model="inputCheckInfo.inputValue"
             :rules="inputCheckInfo.rule"
             :label-width="labelWidth"
@@ -25,7 +25,11 @@
         <self-form-item-auto-gen :inputCheckInfo="inputCheckInfo" fieldName="tags"
                                  :inputAppearanceSetting="inputAppearanceSetting"
                                  :inputGlobalAppearanceSetting="inputGlobalAppearanceSetting"
-                                 :inputActionSetting="inputActionSetting">
+                                 :inputActionSetting="inputActionSetting"
+                                 @onBlur="checkWholeStatus"
+                                 @removeItem="checkWholeStatus"
+                                 @addItem="checkWholeStatus"
+        >
         </self-form-item-auto-gen>
         <self-form-item-select
           :inputCheckInfo="inputCheckInfo" fieldName="status"
@@ -224,7 +228,7 @@
                 //icon:"md-phone-portrait", //数组，对每个需要设置icon的字段，设置一个icon字符；如果没有设置（undefined），或者是null或者''，则忽略图标
                 //iconColor:, //icon颜色
                 editable:true,//boolean。确定是否采用类inputUnEditAble，实现input无边框和readonly的效果
-                selectWidth:200, //px。不知何故，iview的select组件，显示的内容必定居中，而其他input都是左对齐。为了模拟左对齐，select的width设置为合适长度，正好容纳option的内容。同时为了将select本身左对齐，formItem也要设置同样的width
+                inputWidth:200, //px。不知何故，iview的select组件，显示的内容必定居中，而其他input都是左对齐。为了模拟左对齐，select的width设置为合适长度，正好容纳option的内容。同时为了将select本身左对齐，formItem也要设置同样的width
               },
               'htmlContent':{
                 //icon:'md-lock', //数组，对每个需要设置icon的字段，设置一个icon字符；如果没有设置（undefined），或者是null或者''，则忽略图标
@@ -238,10 +242,12 @@
                 //iconColor:, //icon颜色
                 editable:true,//boolean。确定是否采用类inputUnEditAble，实现input无边框和readonly的效果
                 //isPassword:true,
-                labelPosition:'left',//must same as Form setting
+                labelPosition:this.labelPosition,//must same as Form setting
                 labelWidth:this.labelWidth,//must same as Form?
 
-                addButtonSize:undefined, //h1~h6，未设置，默认和labelSize一样
+                inputWidth: 100,//autoGen中的item，永远都是按行排列的,所以需要设置width
+                addButtonSize:24, //数字或者字符（绑定到iview 的icon的size属性上）
+                addButtonMarginTop:4,//因为addButton无法获得input的height（iview中input的高度包括本身以及error message的高度），所以提供此参数，以便手工居中
               }
             },
             inputGlobalAppearanceSetting:{
@@ -274,7 +280,9 @@
             // validResult:false,//输入的值是否符合rule定义
             // anyFieldValueChange:false,//输入的值是否和原始值不一样
 
-            labelWidth:80,
+            labelWidth:80,    //只是为了给autoGen做参考，所以单独设置变量
+            labelPosition:'left',   //只是为了给autoGen做参考，所以单独设置变量
+
             // editable:true,//不是通过父组件传入，而是通过本组件的按钮 来控制
             /*attachmentListPropsInfo:{
               configuration:{

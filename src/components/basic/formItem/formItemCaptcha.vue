@@ -69,6 +69,7 @@ inputGlobalAppearanceSetting:
   /******************************/
   import {sendRequestGetResult_async} from '../../../function/network'
   import * as misc from '../../../function/misc'
+  import * as formItemHelper from '../../formItemHelper'
   /******************************/
   /**     common constant     **/
   /******************************/
@@ -104,11 +105,12 @@ inputGlobalAppearanceSetting:
                       this.inputCheckInfo.inputValue[this.fieldName]=''
                     }*/
 
-            //2. 检查inputValue，如果是空字符，或者null，说明需要设置ph
-            if(null === this.inputCheckInfo.inputValue[this.fieldName]
+            //2. onFocus，清空placeHolder(理论上应该是inputValue为空才设置placeHolder，但是判断也需要代码，干脆直接清空placeHolder)
+            this.inputCheckInfo.inputAttribute[this.fieldName][InputAttributeFieldName.PLACE_HOLDER]=''
+/*            if(null === this.inputCheckInfo.inputValue[this.fieldName]
               || '' === this.inputCheckInfo.inputValue[this.fieldName]){
               this.inputCheckInfo.inputAttribute[this.fieldName][InputAttributeFieldName.PLACE_HOLDER]=this.inputCheckInfo.inputAttribute[this.fieldName][InputAttributeFieldName.PLACE_HOLDER_BKUP]
-            }
+            }*/
             this.$emit('onFocus')
           },
           async onBlur_async(){
@@ -124,10 +126,11 @@ inputGlobalAppearanceSetting:
           },
           async onChange() {
             //1. 检查inputValue，如果是空字符，或者null，说明需要设置ph
-            if (null === this.inputCheckInfo.inputValue[this.fieldName]
+            formItemHelper.setPlaceHolderWhenInputValueNull({inputCheckInfo:this.inputCheckInfo,fieldName:this.fieldName})
+            /*if (null === this.inputCheckInfo.inputValue[this.fieldName]
               || '' === this.inputCheckInfo.inputValue[this.fieldName]) {
               this.inputCheckInfo.inputAttribute[this.fieldName][InputAttributeFieldName.PLACE_HOLDER] = this.inputCheckInfo.inputAttribute[this.fieldName][InputAttributeFieldName.PLACE_HOLDER_BKUP]
-            }
+            }*/
             //2. 验证输入（即使空）
             this.$parent.validateField(this.fieldName, (validResult) => {
               this.inputCheckInfo.inputTempData[this.fieldName][InputTempDataFieldName.VALID_RESULT] = validResult
